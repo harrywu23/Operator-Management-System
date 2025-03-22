@@ -1,59 +1,53 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class OperatorManagementSystem {
 
+  private ArrayList<String> operatorList;
+
   // Do not change the parameters of the constructor
-  public OperatorManagementSystem() {}
+  public OperatorManagementSystem() {
+    operatorList = new ArrayList<String>();
+  }
 
   public void searchOperators(String keyword) {
-    // TODO implement
+
+    int operatorCount = 0;
+
+    for (int i = 0; i < operatorList.size(); i++) {
+      String operator = operatorList.get(i);
+      if (operator.equals(keyword)) {
+        operatorCount++;
+      }
+    }
+
+    if (operatorCount == 0) {
+      MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
+    }
   }
 
-  public void createOperator(String operatorName, String location) {
-    // TODO implement
-  }
+  public void createOperator(String operatorName, String location) {}
 
-  public void viewActivities(String operatorId) {
-    // TODO implement
-  }
+  public void viewActivities(String operatorId) {}
 
-  public void createActivity(String activityName, String activityType, String operatorId) {
-    // TODO implement
-  }
+  public void createActivity(String activityName, String activityType, String operatorId) {}
 
-  public void searchActivities(String keyword) {
-    // TODO implement
-  }
+  public void searchActivities(String keyword) {}
 
-  public void addPublicReview(String activityId, String[] options) {
-    // TODO implement
-  }
+  public void addPublicReview(String activityId, String[] options) {}
 
-  public void addPrivateReview(String activityId, String[] options) {
-    // TODO implement
-  }
+  public void addPrivateReview(String activityId, String[] options) {}
 
-  public void addExpertReview(String activityId, String[] options) {
-    // TODO implement
-  }
+  public void addExpertReview(String activityId, String[] options) {}
 
-  public void displayReviews(String activityId) {
-    // TODO implement
-  }
+  public void displayReviews(String activityId) {}
 
-  public void endorseReview(String reviewId) {
-    // TODO implement
-  }
+  public void endorseReview(String reviewId) {}
 
-  public void resolveReview(String reviewId, String response) {
-    // TODO implement
-  }
+  public void resolveReview(String reviewId, String response) {}
 
-  public void uploadReviewImage(String reviewId, String imageName) {
-    // TODO implement
-  }
+  public void uploadReviewImage(String reviewId, String imageName) {}
 
-  public void displayTopActivities() {
-    // TODO implement
-  }
+  public void displayTopActivities() {}
 }
