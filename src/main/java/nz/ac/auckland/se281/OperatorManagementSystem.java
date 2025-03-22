@@ -53,12 +53,12 @@ public class OperatorManagementSystem {
     int locationCount = 0;
     for (int i = 0; i < operatorList.size(); i++) {
 
-      if (currentLocation == location) {
-        locationCount = locationCount++;
+      if (currentLocation.equals(location)) {
+        locationCount++;
       }
     }
-    String threeDigit = String.valueOf(locationCount);
-    String operatorCode = result + "-" + abbreviation + "-" + "00" + threeDigit;
+    String threeDigit = String.format("%03d", locationCount);
+    String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
     System.out.println(operatorCode);
   }
 
