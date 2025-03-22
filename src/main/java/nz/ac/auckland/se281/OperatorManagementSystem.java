@@ -27,7 +27,15 @@ public class OperatorManagementSystem {
     }
   }
 
-  public void createOperator(String operatorName, String location) {}
+  public void createOperator(String operatorName, String location) {
+    String[] words = operatorName.split(" ");
+    String result = "";
+
+    for (String word : words) {
+      result = result + word.charAt(0);
+    }
+    System.out.println(result);
+  }
 
   public void viewActivities(String operatorId) {}
 
