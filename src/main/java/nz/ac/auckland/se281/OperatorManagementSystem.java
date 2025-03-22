@@ -5,19 +5,21 @@ import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
 
-  private ArrayList<String> operatorList;
+  private ArrayList<String> operatorName;
+  private ArrayList<String> locationList;
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
-    operatorList = new ArrayList<String>(); // initialising operatorList as a new arraylist
+    operatorName = new ArrayList<String>(); // initialising operatorName as a new arraylist
+    locationList = new ArrayList<String>();
   }
 
   public void searchOperators(String keyword) {
 
     int operatorCount = 0; // variable to track operator count
 
-    for (int i = 0; i < operatorList.size(); i++) {
-      String operator = operatorList.get(i); // get operator name at current index
+    for (int i = 0; i < operatorName.size(); i++) {
+      String operator = operatorName.get(i); // get operator name at current index
       if (operator.equals(keyword)) {
         operatorCount++;
       }
@@ -32,6 +34,7 @@ public class OperatorManagementSystem {
   public void createOperator(String operatorName, String location) {
 
     Location rawLocation = Location.fromString(location);
+    locationList.add(location);
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
@@ -47,18 +50,19 @@ public class OperatorManagementSystem {
     for (String word : words) {
       result = result + word.charAt(0);
     }
+
     String abbreviation = rawLocation.getLocationAbbreviation();
-
-    String currentLocation = location;
     int locationCount = 0;
-    for (int i = 0; i < operatorList.size(); i++) {
-
-      if (currentLocation.equals(location)) {
+    for (int i = 0; i < locationList.size(); i++) {
+      if (location.equalsIgnoreCase(rawLocation.getNameEnglish())
+          || location.equalsIgnoreCase(rawLocation.getNameTeReo())
+          || location.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
         locationCount++;
       }
     }
+
     String threeDigit = String.format("%03d", locationCount);
-    String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
+    String operatorCode = "(" + result + "-" + abbreviation + "-" + threeDigit + ")";
     System.out.println(operatorCode);
   }
 
