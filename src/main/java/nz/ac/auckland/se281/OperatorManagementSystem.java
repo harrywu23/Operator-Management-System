@@ -9,20 +9,21 @@ public class OperatorManagementSystem {
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
-    operatorList = new ArrayList<String>();
+    operatorList = new ArrayList<String>(); // initialising operatorList as a new arraylist
   }
 
   public void searchOperators(String keyword) {
 
-    int operatorCount = 0;
+    int operatorCount = 0; // variable to track operator count
 
     for (int i = 0; i < operatorList.size(); i++) {
-      String operator = operatorList.get(i);
+      String operator = operatorList.get(i); // get operator name at current index
       if (operator.equals(keyword)) {
         operatorCount++;
       }
     }
 
+    // print a message if no operator is found
     if (operatorCount == 0) {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
     }
@@ -32,12 +33,14 @@ public class OperatorManagementSystem {
 
     Location rawLocation = Location.fromString(location);
 
+    // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
     if (operatorName.length() >= 3) {
       System.out.println(
           "Successfully created operator '" + operatorName + "' located in '" + rawLocation + "'.");
     }
 
+    // creating an acroynm from the first letter of each word
     String[] words = operatorName.split(" ");
     String result = "";
 
@@ -45,6 +48,9 @@ public class OperatorManagementSystem {
       result = result + word.charAt(0);
     }
     System.out.println(result);
+    String abbreviation = rawLocation.getLocationAbbreviation();
+    String operatorCode = result + "-" + abbreviation;
+    System.out.println(operatorCode);
   }
 
   public void viewActivities(String operatorId) {}
