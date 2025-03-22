@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
 
@@ -29,9 +30,12 @@ public class OperatorManagementSystem {
 
   public void createOperator(String operatorName, String location) {
 
+    Location rawLocation = Location.fromString(location);
+
     operatorName = operatorName.trim();
     if (operatorName.length() >= 3) {
-      System.out.println("Successfully created operator " + "'" + operatorName + "'");
+      System.out.println(
+          "Successfully created operator '" + operatorName + "' located in '" + rawLocation + "'");
     }
 
     String[] words = operatorName.split(" ");
