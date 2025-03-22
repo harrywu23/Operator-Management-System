@@ -28,6 +28,12 @@ public class OperatorManagementSystem {
   }
 
   public void createOperator(String operatorName, String location) {
+
+    operatorName = operatorName.trim();
+    if (operatorName.length() >= 3) {
+      System.out.println("Successfully created operator " + "'" + operatorName + "'");
+    }
+
     String[] words = operatorName.split(" ");
     String result = "";
 
