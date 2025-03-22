@@ -47,9 +47,18 @@ public class OperatorManagementSystem {
     for (String word : words) {
       result = result + word.charAt(0);
     }
-    System.out.println(result);
     String abbreviation = rawLocation.getLocationAbbreviation();
-    String operatorCode = result + "-" + abbreviation;
+
+    String currentLocation = location;
+    int locationCount = 0;
+    for (int i = 0; i < operatorList.size(); i++) {
+
+      if (currentLocation == location) {
+        locationCount = locationCount++;
+      }
+    }
+    String threeDigit = String.valueOf(locationCount);
+    String operatorCode = result + "-" + abbreviation + "-" + "00" + threeDigit;
     System.out.println(operatorCode);
   }
 
