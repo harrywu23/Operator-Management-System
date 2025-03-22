@@ -35,12 +35,7 @@ public class OperatorManagementSystem {
     operatorName = operatorName.trim();
     if (operatorName.length() >= 3) {
       System.out.println(
-          "Successfully created operator '"
-              + operatorName
-              + "' located in '"
-              + rawLocation
-              + "'"
-              + ".");
+          "Successfully created operator '" + operatorName + "' located in '" + rawLocation + "'.");
     }
 
     String[] words = operatorName.split(" ");
