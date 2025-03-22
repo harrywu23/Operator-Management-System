@@ -55,7 +55,7 @@ public class OperatorManagementSystem {
     }
 
     String threeDigit = String.format("%03d", locationCount);
-    String operatorCode = "(" + result + "-" + abbreviation + "-" + threeDigit + ")";
+    String operatorCode = "('" + result + "-" + abbreviation + "-" + threeDigit + "')";
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
@@ -63,9 +63,9 @@ public class OperatorManagementSystem {
       System.out.println(
           "Successfully created operator '"
               + operatorName
-              + " "
+              + "' "
               + operatorCode
-              + "' located in '"
+              + " located in '"
               + rawLocation
               + "'.");
     }
