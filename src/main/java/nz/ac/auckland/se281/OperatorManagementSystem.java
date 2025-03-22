@@ -36,13 +36,6 @@ public class OperatorManagementSystem {
     Location rawLocation = Location.fromString(location);
     locationList.add(location);
 
-    // Trim any spaces in the operator name and check if it is at least 3 characters long
-    operatorName = operatorName.trim();
-    if (operatorName.length() >= 3) {
-      System.out.println(
-          "Successfully created operator '" + operatorName + "' located in '" + rawLocation + "'.");
-    }
-
     // creating an acroynm from the first letter of each word
     String[] words = operatorName.split(" ");
     String result = "";
@@ -63,7 +56,19 @@ public class OperatorManagementSystem {
 
     String threeDigit = String.format("%03d", locationCount);
     String operatorCode = "(" + result + "-" + abbreviation + "-" + threeDigit + ")";
-    System.out.println(operatorCode);
+
+    // Trim any spaces in the operator name and check if it is at least 3 characters long
+    operatorName = operatorName.trim();
+    if (operatorName.length() >= 3) {
+      System.out.println(
+          "Successfully created operator '"
+              + operatorName
+              + " "
+              + operatorCode
+              + "' located in '"
+              + rawLocation
+              + "'.");
+    }
   }
 
   public void viewActivities(String operatorId) {}
