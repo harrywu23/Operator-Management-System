@@ -4,26 +4,23 @@ import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
-
-  private ArrayList<String> operatorName;
-  private ArrayList<String> locationList;
+  private ArrayList<Operator> operatorList;
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
-    operatorName = new ArrayList<String>(); // initialising operatorName as a new arraylist
-    locationList = new ArrayList<String>();
+    operatorList = new ArrayList<Operator>();
   }
 
   public void searchOperators(String keyword) {
 
     int operatorCount = 0; // variable to track operator count
 
-    for (int i = 0; i < operatorName.size(); i++) {
-      String operator = operatorName.get(i); // get operator name at current index
-      if (operator.equals(keyword)) {
-        operatorCount++;
-      }
-    }
+    // for (int i = 0; i < temporary.size(); i++) {
+    //   String operator = temporary.get(i).getOperatorName(); // get operator name at current index
+    //   if (operator.equals(keyword)) {
+    //     operatorCount++;
+    //   }
+    // }
 
     // print a message if no operator is found
     if (operatorCount == 0) {
@@ -33,8 +30,9 @@ public class OperatorManagementSystem {
 
   public void createOperator(String operatorName, String location) {
 
+    Operator newOperator = new Operator(operatorName, location);
     Location rawLocation = Location.fromString(location);
-    locationList.add(location);
+    operatorList.add(newOperator);
 
     // creating an acroynm from the first letter of each word
     String[] words = operatorName.split(" ");
@@ -46,7 +44,7 @@ public class OperatorManagementSystem {
 
     String abbreviation = rawLocation.getLocationAbbreviation();
     int locationCount = 0;
-    for (int i = 0; i < locationList.size(); i++) {
+    for (int i = 0; i < operatorList.size(); i++) {
       if (location.equalsIgnoreCase(rawLocation.getNameEnglish())
           || location.equalsIgnoreCase(rawLocation.getNameTeReo())
           || location.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
