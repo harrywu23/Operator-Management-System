@@ -13,18 +13,21 @@ public class OperatorManagementSystem {
 
   public void searchOperators(String keyword) {
 
-    int operatorCount = 0; // variable to track operator count
-
-    // for (int i = 0; i < temporary.size(); i++) {
-    //   String operator = temporary.get(i).getOperatorName(); // get operator name at current index
-    //   if (operator.equals(keyword)) {
-    //     operatorCount++;
-    //   }
-    // }
-
+    int operatorCount = operatorList.size(); // variable to track operator count
     // print a message if no operator is found
     if (operatorCount == 0) {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
+    } else if (operatorCount == 1) {
+      MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
+    } else {
+      MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "", ":");
+    }
+
+    for (int i = 0; i < operatorList.size(); i++) {
+      String operator = operatorList.get(i).getOperatorName(); // get operator name at current index
+      if (operator.equals(keyword)) {
+        operatorCount++;
+      }
     }
   }
 
