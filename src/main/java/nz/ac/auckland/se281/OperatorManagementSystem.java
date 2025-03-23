@@ -18,7 +18,31 @@ public class OperatorManagementSystem {
     if (operatorCount == 0) {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
     } else if (operatorCount == 1) {
+      String currentLocation = operatorList.get(0).getLocation();
+      Location rawLocation = Location.fromString(currentLocation);
+      String currentOperator = operatorList.get(0).getOperatorName();
+      String[] words = currentOperator.split(" ");
+      String result = "";
+
+      for (String word : words) {
+        result = result + word.charAt(0);
+      }
+
+      String abbreviation = rawLocation.getLocationAbbreviation();
+      int locationCount = 0;
+      for (int i = 0; i < operatorList.size(); i++) {
+        if (currentLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
+            || currentLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
+            || currentLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
+          locationCount++;
+        }
+      }
+
+      String threeDigit = String.format("%03d", locationCount);
+
+      String operatorCode = "('" + result + "-" + abbreviation + "-" + threeDigit + "')";
       MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
+      MessageCli.OPERATOR_ENTRY.printMessage(result, operatorCode, rawLocation.getFullName());
     } else {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "", ":");
     }
