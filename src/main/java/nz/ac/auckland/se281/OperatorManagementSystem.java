@@ -40,9 +40,10 @@ public class OperatorManagementSystem {
 
       String threeDigit = String.format("%03d", locationCount);
 
-      String operatorCode = "('" + result + "-" + abbreviation + "-" + threeDigit + "')";
+      String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
       MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
-      MessageCli.OPERATOR_ENTRY.printMessage(result, operatorCode, rawLocation.getFullName());
+      MessageCli.OPERATOR_ENTRY.printMessage(
+          currentOperator, operatorCode, rawLocation.getFullName());
     } else {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "", ":");
     }
@@ -80,19 +81,13 @@ public class OperatorManagementSystem {
     }
 
     String threeDigit = String.format("%03d", locationCount);
-    String operatorCode = "('" + result + "-" + abbreviation + "-" + threeDigit + "')";
+    String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
     if (operatorName.length() >= 3) {
-      System.out.println(
-          "Successfully created operator '"
-              + operatorName
-              + "' "
-              + operatorCode
-              + " located in '"
-              + rawLocation
-              + "'.");
+      MessageCli.OPERATOR_CREATED.printMessage(
+          operatorName, operatorCode, rawLocation.getFullName());
     }
   }
 
