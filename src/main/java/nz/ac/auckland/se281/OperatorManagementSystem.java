@@ -86,9 +86,9 @@ public class OperatorManagementSystem {
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
     for (int i = 0; i < operatorList.size(); i++) {
-      if (operatorName.length() >= 3
-          || operatorName != operatorList.get(i).getOperatorName()
-          || operatorName != operatorList.get(i).getLocation()) {
+      if (operatorName.equals(operatorList.get(i).getOperatorName())
+          && rawLocation.getFullName().equals(operatorList.get(i).getLocation())) {
+      } else if (operatorName.length() >= 3) {
         MessageCli.OPERATOR_CREATED.printMessage(
             operatorName, operatorCode, rawLocation.getFullName());
       } else {
