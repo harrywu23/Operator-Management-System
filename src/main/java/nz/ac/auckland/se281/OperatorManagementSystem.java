@@ -85,18 +85,24 @@ public class OperatorManagementSystem {
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
-    for (int i = 0; i < operatorList.size(); i++) {
-      if (operatorName.equals(operatorList.get(i).getOperatorName())
-          && rawLocation.getFullName().equals(operatorList.get(i).getLocation())) {
-      } else if (operatorName.length() >= 3) {
-        MessageCli.OPERATOR_CREATED.printMessage(
-            operatorName, operatorCode, rawLocation.getFullName());
-      } else {
-        MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(
-            operatorList.get(i).getOperatorName(), operatorList.get(i).getLocation());
-      }
+    if (operatorName.length() < 3) {
+      MessageCli.OPERATOR_NOT_CREATED_INVALID_OPERATOR_NAME.printMessage(operatorName);
+      return;
     }
+
+    MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorCode, rawLocation.getFullName());
   }
+
+  //   for (int i = 0; i < operatorList.size(); i++) {
+  //     if (operatorName.length() >= 3) {
+  //       MessageCli.OPERATOR_CREATED.printMessage(
+  //           operatorName, operatorCode, rawLocation.getFullName());
+  //     } else if (operatorName.length() >= 3) {
+  //       MessageCli.OPERATOR_CREATED.printMessage(
+  //           operatorName, operatorCode, rawLocation.getFullName());
+  //     }
+  //   }
+  // }
 
   public void viewActivities(String operatorId) {}
 
