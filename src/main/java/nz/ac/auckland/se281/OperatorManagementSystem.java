@@ -85,9 +85,16 @@ public class OperatorManagementSystem {
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
-    if (operatorName.length() >= 3) {
-      MessageCli.OPERATOR_CREATED.printMessage(
-          operatorName, operatorCode, rawLocation.getFullName());
+    for (int i = 0; i < operatorList.size(); i++) {
+      if (operatorName.length() >= 3
+          || operatorName != operatorList.get(i).getOperatorName()
+          || operatorName != operatorList.get(i).getLocation()) {
+        MessageCli.OPERATOR_CREATED.printMessage(
+            operatorName, operatorCode, rawLocation.getFullName());
+      } else {
+        MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(
+            operatorList.get(i).getOperatorName(), operatorList.get(i).getLocation());
+      }
     }
   }
 
