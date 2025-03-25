@@ -46,6 +46,34 @@ public class OperatorManagementSystem {
           currentOperator, operatorCode, rawLocation.getFullName());
     } else {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s", ":");
+
+      for (int i = 0; i < operatorCount; i++) {
+        String currentLocation = operatorList.get(0).getLocation();
+        Location rawLocation = Location.fromString(currentLocation);
+        String currentOperator = operatorList.get(0).getOperatorName();
+        String[] words = currentOperator.split(" ");
+        String result = "";
+
+        for (String word : words) {
+          result = result + word.charAt(0);
+        }
+
+        String abbreviation = rawLocation.getLocationAbbreviation();
+        int locationCount = 0;
+        for (int j = 0; j < operatorList.size(); j++) {
+          if (currentLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
+              || currentLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
+              || currentLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
+            locationCount++;
+          }
+        }
+
+        String threeDigit = String.format("%03d", locationCount);
+        String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
+
+        MessageCli.OPERATOR_ENTRY.printMessage(
+            currentOperator, operatorCode, rawLocation.getFullName());
+      }
     }
   }
 
@@ -82,10 +110,11 @@ public class OperatorManagementSystem {
     }
 
     int locationCount = 0;
-    for (int i = 0; i < operatorList.size(); i++) {
-      if (location.equalsIgnoreCase(rawLocation.getNameEnglish())
-          || location.equalsIgnoreCase(rawLocation.getNameTeReo())
-          || location.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
+    for (Operator operator : operatorList) {
+      String opLocation = operator.getLocation();
+      if (opLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
+          || opLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
+          || opLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
         locationCount++;
       }
     }
