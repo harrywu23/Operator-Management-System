@@ -5,6 +5,7 @@ import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
   private ArrayList<Operator> operatorList;
+  private int maoriNameCount = 0;
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
@@ -14,6 +15,19 @@ public class OperatorManagementSystem {
   public void searchOperators(String keyword) {
 
     int operatorCount = operatorList.size(); // variable to track operator count
+    for (Operator operator : operatorList) {
+      // Initialize rawLocation for each operator
+      Location rawLocation = Location.fromString(operator.getLocation());
+
+      // Get location name in te reo Māori (assuming getNameTeReo is a valid method)
+      String operatorLocation = rawLocation.getNameTeReo();
+
+      // Case-insensitive matching for location
+      if (operatorLocation.equalsIgnoreCase(keyword)) {
+        maoriNameCount++;
+      }
+    }
+
     // print a message if no operator is found
     if (operatorCount == 0) {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
@@ -126,17 +140,6 @@ public class OperatorManagementSystem {
 
     MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorCode, rawLocation.getFullName());
   }
-
-  //   for (int i = 0; i < operatorList.size(); i++) {
-  //     if (operatorName.length() >= 3) {
-  //       MessageCli.OPERATOR_CREATED.printMessage(
-  //           operatorName, operatorCode, rawLocation.getFullName());
-  //     } else if (operatorName.length() >= 3) {
-  //       MessageCli.OPERATOR_CREATED.printMessage(
-  //           operatorName, operatorCode, rawLocation.getFullName());
-  //     }
-  //   }
-  // }
 
   public void viewActivities(String operatorId) {}
 
