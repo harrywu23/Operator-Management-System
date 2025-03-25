@@ -58,17 +58,19 @@ public class OperatorManagementSystem {
       return;
     }
 
+    Location rawLocation = Location.fromString(location);
+
     for (Operator op : operatorList) {
       if (op.getOperatorName().equalsIgnoreCase(operatorName)
           && op.getLocation().equalsIgnoreCase(location)) {
         MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(
-            operatorName, location);
+            operatorName, rawLocation.getFullName());
         return;
       }
     }
 
+    String abbreviation = rawLocation.getLocationAbbreviation();
     Operator newOperator = new Operator(operatorName, location);
-    Location rawLocation = Location.fromString(location);
     operatorList.add(newOperator);
 
     // creating an acroynm from the first letter of each word
@@ -79,7 +81,6 @@ public class OperatorManagementSystem {
       result = result + word.charAt(0);
     }
 
-    String abbreviation = rawLocation.getLocationAbbreviation();
     int locationCount = 0;
     for (int i = 0; i < operatorList.size(); i++) {
       if (location.equalsIgnoreCase(rawLocation.getNameEnglish())
