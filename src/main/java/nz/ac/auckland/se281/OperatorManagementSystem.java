@@ -30,10 +30,11 @@ public class OperatorManagementSystem {
 
       String abbreviation = rawLocation.getLocationAbbreviation();
       int locationCount = 0;
-      for (int i = 0; i < operatorList.size(); i++) {
-        if (currentLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
-            || currentLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
-            || currentLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
+      for (Operator operator : operatorList) {
+        String opLocation = operator.getLocation();
+        if (opLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
+            || opLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
+            || opLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
           locationCount++;
         }
       }
@@ -60,10 +61,11 @@ public class OperatorManagementSystem {
 
         String abbreviation = rawLocation.getLocationAbbreviation();
         int locationCount = 0;
-        for (int j = 0; j < operatorList.size(); j++) {
-          if (currentLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
-              || currentLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
-              || currentLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
+        for (Operator operator : operatorList) {
+          String opLocation = operator.getLocation();
+          if (opLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
+              || opLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
+              || opLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
             locationCount++;
           }
         }
