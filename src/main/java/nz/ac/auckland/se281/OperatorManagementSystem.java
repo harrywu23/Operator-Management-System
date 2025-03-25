@@ -47,16 +47,16 @@ public class OperatorManagementSystem {
     } else {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s", ":");
     }
-
-    for (int i = 0; i < operatorList.size(); i++) {
-      String operator = operatorList.get(i).getOperatorName(); // get operator name at current index
-      if (operator.equals(keyword)) {
-        operatorCount++;
-      }
-    }
   }
 
   public void createOperator(String operatorName, String location) {
+
+    // Trim any spaces in the operator name and check if it is at least 3 characters long
+    operatorName = operatorName.trim();
+    if (operatorName.length() < 3) {
+      MessageCli.OPERATOR_NOT_CREATED_INVALID_OPERATOR_NAME.printMessage(operatorName);
+      return;
+    }
 
     Operator newOperator = new Operator(operatorName, location);
     Location rawLocation = Location.fromString(location);
@@ -82,13 +82,6 @@ public class OperatorManagementSystem {
 
     String threeDigit = String.format("%03d", locationCount);
     String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
-
-    // Trim any spaces in the operator name and check if it is at least 3 characters long
-    operatorName = operatorName.trim();
-    if (operatorName.length() < 3) {
-      MessageCli.OPERATOR_NOT_CREATED_INVALID_OPERATOR_NAME.printMessage(operatorName);
-      return;
-    }
 
     MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorCode, rawLocation.getFullName());
   }
