@@ -25,6 +25,7 @@ public class OperatorManagementSystem {
       // Case-insensitive matching for location
       if (operatorLocation.equalsIgnoreCase(keyword)) {
         maoriNameCount++;
+        operatorCount = maoriNameCount;
       }
     }
 
@@ -81,14 +82,12 @@ public class OperatorManagementSystem {
               || opLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
               || opLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
             locationCount++;
+            String threeDigit = String.format("%03d", locationCount);
+            String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
+            MessageCli.OPERATOR_ENTRY.printMessage(
+                currentOperator, operatorCode, rawLocation.getFullName());
           }
         }
-
-        String threeDigit = String.format("%03d", locationCount);
-        String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
-
-        MessageCli.OPERATOR_ENTRY.printMessage(
-            currentOperator, operatorCode, rawLocation.getFullName());
       }
     }
   }
