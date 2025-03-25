@@ -49,9 +49,9 @@ public class OperatorManagementSystem {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s", ":");
 
       for (int i = 0; i < operatorCount; i++) {
-        String currentLocation = operatorList.get(0).getLocation();
+        String currentLocation = operatorList.get(i).getLocation();
         Location rawLocation = Location.fromString(currentLocation);
-        String currentOperator = operatorList.get(0).getOperatorName();
+        String currentOperator = operatorList.get(i).getOperatorName();
         String[] words = currentOperator.split(" ");
         String result = "";
 
