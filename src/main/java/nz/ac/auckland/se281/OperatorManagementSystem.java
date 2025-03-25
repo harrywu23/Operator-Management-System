@@ -58,6 +58,15 @@ public class OperatorManagementSystem {
       return;
     }
 
+    for (Operator op : operatorList) {
+      if (op.getOperatorName().equalsIgnoreCase(operatorName)
+          && op.getLocation().equalsIgnoreCase(location)) {
+        MessageCli.OPERATOR_NOT_CREATED_ALREADY_EXISTS_SAME_LOCATION.printMessage(
+            operatorName, location);
+        return;
+      }
+    }
+
     Operator newOperator = new Operator(operatorName, location);
     Location rawLocation = Location.fromString(location);
     operatorList.add(newOperator);
