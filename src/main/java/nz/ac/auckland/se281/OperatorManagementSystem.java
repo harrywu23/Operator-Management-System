@@ -5,7 +5,7 @@ import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
   private ArrayList<Operator> operatorList;
-  private int maoriNameCount = 0;
+  private int specificNameCount = 0;
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
@@ -21,11 +21,13 @@ public class OperatorManagementSystem {
 
       // Get location name in te reo Māori (assuming getNameTeReo is a valid method)
       String operatorLocation = rawLocation.getNameTeReo();
+      String operatorLocation2 = rawLocation.getNameEnglish();
 
       // Case-insensitive matching for location
-      if (operatorLocation.equalsIgnoreCase(keyword)) {
-        maoriNameCount++;
-        operatorCount = maoriNameCount;
+      if (operatorLocation.equalsIgnoreCase(keyword)
+          || operatorLocation2.equalsIgnoreCase(keyword)) {
+        specificNameCount++;
+        operatorCount = specificNameCount;
       }
     }
 
