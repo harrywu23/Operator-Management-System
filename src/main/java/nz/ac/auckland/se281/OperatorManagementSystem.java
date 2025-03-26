@@ -6,7 +6,6 @@ import nz.ac.auckland.se281.Types.Location;
 public class OperatorManagementSystem {
   private ArrayList<Operator> operatorList;
   private int specificNameCount = 0;
-  private int keyWordCount = 0;
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
@@ -14,7 +13,7 @@ public class OperatorManagementSystem {
   }
 
   public void searchOperators(String keyword) {
-
+    keyword = keyword.toLowerCase();
     int operatorCount = operatorList.size(); // variable to track operator count
     for (Operator operator : operatorList) {
       // Initialize rawLocation for each operator
@@ -23,20 +22,12 @@ public class OperatorManagementSystem {
       // Get location name in te reo Māori (assuming getNameTeReo is a valid method)
       String operatorLocation = rawLocation.getNameTeReo();
       String operatorLocation2 = rawLocation.getNameEnglish();
-      String operatorLocation3 = rawLocation.getFullName();
-      String operatorLocation4 = rawLocation.getLocationAbbreviation();
 
       // Case-insensitive matching for location
       if (operatorLocation.toLowerCase().contains(keyword)
           || operatorLocation2.toLowerCase().contains(keyword)) {
         specificNameCount++;
         operatorCount = specificNameCount;
-      } else if (operatorLocation.contains(keyword)
-          || operatorLocation2.contains(keyword)
-          || operatorLocation3.contains(keyword)
-          || operatorLocation4.contains(keyword)) {
-        keyWordCount++;
-        operatorCount = keyWordCount;
       }
     }
 
