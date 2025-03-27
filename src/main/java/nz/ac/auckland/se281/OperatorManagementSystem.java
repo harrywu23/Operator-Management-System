@@ -19,12 +19,14 @@ public class OperatorManagementSystem {
       // Initialize rawLocation for each operator
       Location rawLocation = Location.fromString(operator.getLocation());
 
-      // Get location name in te reo Māori and english (assuming getNameTeReo is a valid method)
+      // Get location name in te reo Māori and english
       String operatorLocation = rawLocation.getNameTeReo();
       String operatorLocation2 = rawLocation.getNameEnglish();
+      String operatorLocation3 = rawLocation.toString();
 
       // Case-insensitive matching for location
       if (operatorLocation.toLowerCase().contains(keyword)
+          || operatorLocation3.toLowerCase().contains(keyword)
           || operatorLocation2.toLowerCase().contains(keyword)) {
         specificNameCount++;
         operatorCount = specificNameCount;
@@ -62,7 +64,7 @@ public class OperatorManagementSystem {
       MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
       MessageCli.OPERATOR_ENTRY.printMessage(
           currentOperator, operatorCode, rawLocation.getFullName());
-    } else {
+    } else if (operatorCount > 1) {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s", ":");
 
       for (int i = 0; i < operatorCount; i++) {
