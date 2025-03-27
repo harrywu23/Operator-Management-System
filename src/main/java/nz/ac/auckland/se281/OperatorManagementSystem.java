@@ -26,12 +26,16 @@ public class OperatorManagementSystem {
     // Count number of operators from the same location
     int locationCount = 0;
     for (Operator op : operatorList) {
+      if (op == operator) {
+        break;
+      }
       Location opLoc = Location.fromString(op.getLocation());
       if (opLoc.getLocationAbbreviation().equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
         locationCount++;
       }
     }
 
+    locationCount += 1;
     String threeDigit = String.format("%03d", locationCount);
     return result + "-" + rawLocation.getLocationAbbreviation() + "-" + threeDigit;
   }
