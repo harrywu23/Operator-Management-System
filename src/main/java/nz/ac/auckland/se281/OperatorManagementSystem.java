@@ -13,7 +13,6 @@ public class OperatorManagementSystem {
 
   public void searchOperators(String keyword) {
     keyword = keyword.toLowerCase().trim();
-    int operatorCount = 0;
     ArrayList<Operator> matchingOperator = new ArrayList<>();
     for (Operator operator : operatorList) {
       // Initialize rawLocation for each operator
@@ -24,9 +23,10 @@ public class OperatorManagementSystem {
       String operatorLocation3 = rawLocation.getFullName();
 
       if (operatorList.size() == 0) {
-        operatorCount = 0;
+        MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
+        return;
       } else if (keyword.equals("*")) {
-        operatorCount = operatorList.size();
+        matchingOperator.addAll(operatorList);
       }
 
       // Case-insensitive matching for location
@@ -36,7 +36,7 @@ public class OperatorManagementSystem {
         matchingOperator.add(operator);
       }
     }
-
+    int operatorCount = matchingOperator.size();
     // print a message if no operator is found
     if (operatorCount == 0) {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
