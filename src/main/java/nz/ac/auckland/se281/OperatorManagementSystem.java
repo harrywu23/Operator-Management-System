@@ -107,7 +107,10 @@ public class OperatorManagementSystem {
       }
     }
 
-    Operator newOperator = new Operator(operatorName, location);
+    Operator tempOperator = new Operator(operatorName, location, "TEMP");
+    String operatorID = generateOperatorCode(tempOperator);
+
+    Operator newOperator = new Operator(operatorName, location, operatorID);
     operatorList.add(newOperator);
 
     MessageCli.OPERATOR_CREATED.printMessage(
