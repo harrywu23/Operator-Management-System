@@ -13,13 +13,13 @@ public class OperatorManagementSystem {
   }
 
   public void searchOperators(String keyword) {
-    keyword = keyword.toLowerCase();
+    keyword = keyword.toLowerCase().trim();
     int operatorCount = operatorList.size(); // variable to track operator count
     for (Operator operator : operatorList) {
       // Initialize rawLocation for each operator
       Location rawLocation = Location.fromString(operator.getLocation());
 
-      // Get location name in te reo Māori (assuming getNameTeReo is a valid method)
+      // Get location name in te reo Māori and english (assuming getNameTeReo is a valid method)
       String operatorLocation = rawLocation.getNameTeReo();
       String operatorLocation2 = rawLocation.getNameEnglish();
 
