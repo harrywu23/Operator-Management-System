@@ -27,11 +27,7 @@ public class OperatorManagementSystem {
     int locationCount = 0;
     for (Operator op : operatorList) {
       Location opLoc = Location.fromString(op.getLocation());
-      if (opLoc.getNameEnglish().equalsIgnoreCase(rawLocation.getNameEnglish())
-          || opLoc.getNameTeReo().equalsIgnoreCase(rawLocation.getNameTeReo())
-          || opLoc
-              .getLocationAbbreviation()
-              .equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
+      if (opLoc.getLocationAbbreviation().equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
         locationCount++;
       }
     }
@@ -91,37 +87,6 @@ public class OperatorManagementSystem {
     }
   }
 
-  // } else if (operatorCount > 1) {
-  //   MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s",
-  // ":");
-
-  //   for (int i = 0; i < operatorCount; i++) {
-  //     String currentLocation = operatorList.get(i).getLocation();
-  //     Location rawLocation = Location.fromString(currentLocation);
-  //     String currentOperator = operatorList.get(i).getOperatorName();
-  //     String[] words = currentOperator.split(" ");
-  //     String result = "";
-
-  //     for (String word : words) {
-  //       result = result + word.charAt(0);
-  //     }
-
-  //     String abbreviation = rawLocation.getLocationAbbreviation();
-  //     int locationCount = 0;
-  //     for (Operator operator : operatorList) {
-  //       String opLocation = operator.getLocation();
-  //       if (opLocation.equalsIgnoreCase(rawLocation.getNameEnglish())
-  //           || opLocation.equalsIgnoreCase(rawLocation.getNameTeReo())
-  //           || opLocation.equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
-  //         locationCount++;
-  //         String threeDigit = String.format("%03d", locationCount);
-  //         String operatorCode = result + "-" + abbreviation + "-" + threeDigit;
-  //         MessageCli.OPERATOR_ENTRY.printMessage(
-  //             currentOperator, operatorCode, rawLocation.getFullName());
-  //       }
-  //     }
-  //   }
-
   public void createOperator(String operatorName, String location) {
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
@@ -145,17 +110,8 @@ public class OperatorManagementSystem {
     Operator newOperator = new Operator(operatorName, location);
     operatorList.add(newOperator);
 
-    // creating an acroynm from the first letter of each word
-    String[] words = operatorName.split(" ");
-    String result = "";
-
-    for (String word : words) {
-      result = result + word.charAt(0);
-    }
-
-    String operatorCode = generateOperatorCode(newOperator);
-
-    MessageCli.OPERATOR_CREATED.printMessage(operatorName, operatorCode, rawLocation.getFullName());
+    MessageCli.OPERATOR_CREATED.printMessage(
+        operatorName, generateOperatorCode(newOperator), rawLocation.getFullName());
   }
 
   public void viewActivities(String operatorId) {}
