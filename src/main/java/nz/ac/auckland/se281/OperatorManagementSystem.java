@@ -58,12 +58,14 @@ public class OperatorManagementSystem {
       String nameEnglish = rawLocation.getNameEnglish().toLowerCase();
       String fullName = rawLocation.getFullName().toLowerCase();
       String opName = operator.getOperatorName().toLowerCase();
+      String abbreviation = rawLocation.getLocationAbbreviation().toLowerCase();
 
       if (keyword.equals("*")
           || nameTeReo.contains(keyword)
           || nameEnglish.contains(keyword)
           || fullName.contains(keyword)
-          || opName.contains(keyword)) {
+          || opName.contains(keyword)
+          || abbreviation.contains(keyword)) {
         matchingOperators.add(operator);
       }
     }
