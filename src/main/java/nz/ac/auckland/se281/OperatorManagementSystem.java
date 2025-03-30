@@ -11,6 +11,7 @@ public class OperatorManagementSystem {
     operatorList = new ArrayList<Operator>();
   }
 
+  // method that generates a unique operator code based on the operator's name and location.
   private String generateOperatorCode(Operator operator) {
     String operatorName = operator.getOperatorName();
     String locationStr = operator.getLocation();
@@ -22,6 +23,7 @@ public class OperatorManagementSystem {
     for (String word : words) {
       result += word.charAt(0);
     }
+
     result = result.toUpperCase();
 
     // Count number of operators from the same location
@@ -51,7 +53,7 @@ public class OperatorManagementSystem {
       return;
     }
 
-    // Filter matching operators
+    // Loop through all operators to find matches based on the keyword.
     for (Operator operator : operatorList) {
       Location rawLocation = Location.fromString(operator.getLocation());
       String nameTeReo = rawLocation.getNameTeReo().toLowerCase();
@@ -60,6 +62,8 @@ public class OperatorManagementSystem {
       String opName = operator.getOperatorName().toLowerCase();
       String abbreviation = rawLocation.getLocationAbbreviation().toLowerCase();
 
+      // If the keyword matches any of the location or operator details, add the operator to the
+      // list.
       if (keyword.equals("*")
           || nameTeReo.contains(keyword)
           || nameEnglish.contains(keyword)
@@ -83,11 +87,12 @@ public class OperatorManagementSystem {
       MessageCli.OPERATOR_ENTRY.printMessage(
           op.getOperatorName(), operatorCode, rawLocation.getFullName());
     } else {
+      // If multiple operators are found, print the count and details of each one.
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s", ":");
 
       for (Operator op : matchingOperators) {
-        Location rawLocation = Location.fromString(op.getLocation());
-        String operatorCode = generateOperatorCode(op);
+        Location rawLocation = Location.fromString(op.getLocation()); // Get location.
+        String operatorCode = generateOperatorCode(op); // Generate the operator code.
         MessageCli.OPERATOR_ENTRY.printMessage(
             op.getOperatorName(), operatorCode, rawLocation.getFullName());
       }
@@ -105,6 +110,7 @@ public class OperatorManagementSystem {
 
     Location rawLocation = Location.fromString(location);
 
+    // Check if an operator with the same name and location already exists.
     for (Operator op : operatorList) {
       if (op.getOperatorName().equalsIgnoreCase(operatorName)
           && op.getLocation().equalsIgnoreCase(location)) {
@@ -114,9 +120,11 @@ public class OperatorManagementSystem {
       }
     }
 
+    // Create a temporary operator generate the code.
     Operator tempOperator = new Operator(operatorName, location, "TEMP");
     String operatorID = generateOperatorCode(tempOperator);
 
+    // Create a new operator and add it to the list.
     Operator newOperator = new Operator(operatorName, location, operatorID);
     operatorList.add(newOperator);
 
