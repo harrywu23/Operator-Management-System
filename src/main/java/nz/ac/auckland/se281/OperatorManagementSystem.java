@@ -22,6 +22,7 @@ public class OperatorManagementSystem {
     for (String word : words) {
       result += word.charAt(0);
     }
+    result = result.toUpperCase();
 
     // Count number of operators from the same location
     int locationCount = 0;
