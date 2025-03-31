@@ -103,12 +103,15 @@ public class OperatorManagementSystem {
 
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
-    if (operatorName.length() < 3) {
+
+    Location rawLocation = Location.fromString(location);
+    if (rawLocation == null) {
+      MessageCli.OPERATOR_NOT_CREATED_INVALID_LOCATION.printMessage(location);
+      return;
+    } else if (operatorName.length() < 3) {
       MessageCli.OPERATOR_NOT_CREATED_INVALID_OPERATOR_NAME.printMessage(operatorName);
       return;
     }
-
-    Location rawLocation = Location.fromString(location);
 
     // Check if an operator with the same name and location already exists.
     for (Operator op : operatorList) {
