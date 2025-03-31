@@ -3,12 +3,12 @@ package nz.ac.auckland.se281;
 public class Operator {
   private String operatorName;
   private String location;
-  private String operatorID;
+  private String operatorCode;
 
-  public Operator(String operatorName, String location, String operatorID) {
+  public Operator(String operatorName, String location, String operatorCode) {
     this.operatorName = operatorName;
     this.location = location;
-    this.operatorID = operatorID;
+    this.operatorCode = operatorCode;
   }
 
   public String getOperatorName() {
@@ -19,8 +19,8 @@ public class Operator {
     return this.location;
   }
 
-  public String getOperatorID() {
-    return this.operatorID;
+  public String operatorCode() {
+    return this.operatorCode;
   }
 
   public void setOperatorName(String name) {

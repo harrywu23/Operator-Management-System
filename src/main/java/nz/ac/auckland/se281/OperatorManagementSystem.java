@@ -125,10 +125,10 @@ public class OperatorManagementSystem {
 
     // Create a temporary operator generate the code.
     Operator tempOperator = new Operator(operatorName, location, "TEMP");
-    String operatorID = generateOperatorCode(tempOperator);
+    String operatorCode = generateOperatorCode(tempOperator);
 
     // Create a new operator and add it to the list.
-    Operator newOperator = new Operator(operatorName, location, operatorID);
+    Operator newOperator = new Operator(operatorName, location, operatorCode);
     operatorList.add(newOperator);
 
     MessageCli.OPERATOR_CREATED.printMessage(
