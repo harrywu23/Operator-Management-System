@@ -2,10 +2,10 @@ package nz.ac.auckland.se281;
 
 public class Operator {
   private String operatorName;
-  private String location;
+  private Types.Location location;
   private String operatorCode;
 
-  public Operator(String operatorName, String location, String operatorCode) {
+  public Operator(String operatorName, Types.Location location, String operatorCode) {
     this.operatorName = operatorName;
     this.location = location;
     this.operatorCode = operatorCode;
@@ -15,7 +15,7 @@ public class Operator {
     return this.operatorName;
   }
 
-  public String getLocation() {
+  public Types.Location getLocation() {
     return this.location;
   }
 
@@ -27,7 +27,7 @@ public class Operator {
     this.operatorName = name;
   }
 
-  public void setLocation(String locName) {
-    this.location = locName;
+  public void setLocation(Types.Location loc) {
+    this.location = loc;
   }
 }
