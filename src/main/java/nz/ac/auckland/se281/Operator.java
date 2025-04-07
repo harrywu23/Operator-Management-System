@@ -6,12 +6,13 @@ public class Operator {
   private String operatorName;
   private Types.Location location;
   private String operatorCode;
-  private ArrayList<Activity> activities;
+  private ArrayList<Activity> activityList;
 
   public Operator(String operatorName, Types.Location location, String operatorCode) {
     this.operatorName = operatorName;
     this.location = location;
     this.operatorCode = operatorCode;
+    activityList = new ArrayList<Activity>();
   }
 
   public String getOperatorName() {
@@ -35,10 +36,10 @@ public class Operator {
   }
 
   public void addActivity(Activity activity) {
-    activities.add(activity);
+    activityList.add(activity);
   }
 
   public ArrayList<Activity> getActivities() {
-    return activities;
+    return activityList;
   }
 }

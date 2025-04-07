@@ -158,16 +158,31 @@ public class OperatorManagementSystem {
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
-    
+
+    activityName = activityName.trim();
+
     if (activityName == null) {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
       return;
-      
-      // Test #3 activtiy name is too short
+
+      // Test #3 activity name is too short
     } else if (activityName.length() < 3) {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
       return;
     }
+    // Test #4 create activity invalid operator
+    Operator matchedOperator = null;
+    for (Operator operator : operatorList) {
+      if (operator.getOperatorCode().equals(operatorId)) {
+        matchedOperator = operator;
+        break;
+      }
+    }
+    if (matchedOperator == null) {
+      MessageCli.ACTIVITY_NOT_CREATED_INVALID_OPERATOR_ID.printMessage(operatorId);
+      return;
+    }
+    // Test #5
   }
 
   public void searchActivities(String keyword) {}
