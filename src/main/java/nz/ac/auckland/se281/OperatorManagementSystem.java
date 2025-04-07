@@ -157,7 +157,18 @@ public class OperatorManagementSystem {
     }
   }
 
-  public void createActivity(String activityName, String activityType, String operatorId) {}
+  public void createActivity(String activityName, String activityType, String operatorId) {
+    
+    if (activityName == null) {
+      MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
+      return;
+      
+      // Test #3 activtiy name is too short
+    } else if (activityName.length() < 3) {
+      MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
+      return;
+    }
+  }
 
   public void searchActivities(String keyword) {}
 
