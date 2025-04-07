@@ -3,19 +3,19 @@ package nz.ac.auckland.se281;
 public class Activity {
   private String activityName;
   private Types.ActivityType activityType;
-  private String id;
+  private String activityId;
   private Operator operator;
 
   public Activity(
-      String activityName, Types.ActivityType activityType, String id, Operator operator) {
+      String activityName, Types.ActivityType activityType, String activityId, Operator operator) {
     this.activityName = activityName;
     this.activityType = activityType;
-    this.id = id;
+    this.activityId = activityId;
     this.operator = operator;
   }
 
-  public String getId() {
-    return id;
+  public String getActivityId() {
+    return activityId;
   }
 
   public String getActivityName() {

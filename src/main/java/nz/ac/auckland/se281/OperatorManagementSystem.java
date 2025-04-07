@@ -155,6 +155,19 @@ public class OperatorManagementSystem {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
       return;
     }
+
+    // Test # 7 - Viewing activites at a saved single operator
+    for (int i = 0; i < matchedOperator.getActivities().size(); i++) {
+      Activity activityList = matchedOperator.getActivities().get(i);
+      MessageCli.ACTIVITY_ENTRY.printMessage(
+          activityList.getActivityName(),
+          activityList.getActivityId(),
+          matchedOperator.getOperatorName(),
+          matchedOperator.getOperatorName());
+    }
+
+    // MessageCli.ACTIVITIES_FOUND.printMessage(null);
+    // MessageCli.ACTIVITY_ENTRY.printMessage(null);
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
@@ -182,7 +195,7 @@ public class OperatorManagementSystem {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_OPERATOR_ID.printMessage(operatorId);
       return;
     }
-    // Test #5 - create activity success with extra id letters
+    // Test #5,6 - create activity success with extra id letters
     Activity newActivity = new Activity(activityName, null, operatorId, matchedOperator);
     int activityCount = matchedOperator.getActivities().size();
     String activityCountDigits = String.format("%03d", activityCount + 1);
