@@ -3,6 +3,7 @@
 
 target/
 codestyle.config
+src/tests/MainTest.java
 
 ### Eclipse ###
 .metadata
