@@ -182,11 +182,14 @@ public class OperatorManagementSystem {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_OPERATOR_ID.printMessage(operatorId);
       return;
     }
-    // Test #5
+    // Test #5 - create activity success with extra id letters
     Activity newActivity = new Activity(activityName, null, operatorId, matchedOperator);
+    int activityCount = matchedOperator.getActivities().size();
+    String activityCountDigits = String.format("%03d", activityCount + 1);
+    String activityId = operatorId + "-" + activityCountDigits;
     matchedOperator.addActivity(newActivity);
     MessageCli.ACTIVITY_CREATED.printMessage(
-        activityName, operatorId, activityType, matchedOperator.getOperatorName());
+        activityName, activityId, activityType, matchedOperator.getOperatorName());
   }
 
   public void searchActivities(String keyword) {}
