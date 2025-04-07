@@ -157,18 +157,40 @@ public class OperatorManagementSystem {
     }
 
     // Test # 7 - Viewing activites at a saved single operator
-    int activityCount = matchedOperator.getActivities().size();
-    MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityCount), "ies", ":");
 
-    for (int i = 0; i < matchedOperator.getActivities().size(); i++) {
-      Activity activityList = matchedOperator.getActivities().get(i);
-      MessageCli.ACTIVITY_ENTRY.printMessage(
-          activityList.getActivityName(),
-          activityList.getActivityId(),
-          activityList.getActivityType(),
-          matchedOperator.getOperatorName());
+    int activityCount = matchedOperator.getActivities().size();
+
+    // Testing 0 activity count
+    if (activityCount == 0) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ":");
     }
 
+    // Testing 1 activity count
+    if (activityCount == 1) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("is", Integer.toString(activityCount), "y", ":");
+      for (int i = 0; i < matchedOperator.getActivities().size(); i++) {
+        Activity activityList = matchedOperator.getActivities().get(i);
+        MessageCli.ACTIVITY_ENTRY.printMessage(
+            activityList.getActivityName(),
+            activityList.getActivityId(),
+            activityList.getActivityType(),
+            matchedOperator.getOperatorName());
+      }
+    }
+    // Testing if activity count > 1
+    if (activityCount > 1) {
+
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityCount), "ies", ":");
+
+      for (int i = 0; i < matchedOperator.getActivities().size(); i++) {
+        Activity activityList = matchedOperator.getActivities().get(i);
+        MessageCli.ACTIVITY_ENTRY.printMessage(
+            activityList.getActivityName(),
+            activityList.getActivityId(),
+            activityList.getActivityType(),
+            matchedOperator.getOperatorName());
+      }
+    }
     // MessageCli.ACTIVITIES_FOUND.printMessage(null);
     // MessageCli.ACTIVITY_ENTRY.printMessage(null);
   }
