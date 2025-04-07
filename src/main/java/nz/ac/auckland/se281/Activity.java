@@ -18,11 +18,11 @@ public class Activity {
     return id;
   }
 
-  public String getName() {
+  public String getActivityName() {
     return activityName;
   }
 
-  public Types.ActivityType getType() {
+  public Types.ActivityType getActivityType() {
     return activityType;
   }
 

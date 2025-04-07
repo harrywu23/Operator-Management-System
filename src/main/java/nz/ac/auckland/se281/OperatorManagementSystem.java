@@ -148,6 +148,12 @@ public class OperatorManagementSystem {
     // Test #1 - is an invalid operator ID
     if (matchedOperator == null) {
       MessageCli.OPERATOR_NOT_FOUND.printMessage(operatorId);
+      return;
+    }
+    // Test #2 - if no activites found when viewing
+    if (matchedOperator.getActivities() == null || matchedOperator.getActivities().isEmpty()) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+      return;
     }
   }
 
