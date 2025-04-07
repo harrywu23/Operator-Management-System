@@ -2,12 +2,11 @@ package nz.ac.auckland.se281;
 
 public class Activity {
   private String activityName;
-  private Types.ActivityType activityType;
+  private String activityType;
   private String activityId;
   private Operator operator;
 
-  public Activity(
-      String activityName, Types.ActivityType activityType, String activityId, Operator operator) {
+  public Activity(String activityName, String activityType, String activityId, Operator operator) {
     this.activityName = activityName;
     this.activityType = activityType;
     this.activityId = activityId;
@@ -22,7 +21,7 @@ public class Activity {
     return activityName;
   }
 
-  public Types.ActivityType getActivityType() {
+  public String getActivityType() {
     return activityType;
   }
 

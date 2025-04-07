@@ -157,12 +157,15 @@ public class OperatorManagementSystem {
     }
 
     // Test # 7 - Viewing activites at a saved single operator
+    int activityCount = matchedOperator.getActivities().size();
+    MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityCount), "ies", ":");
+
     for (int i = 0; i < matchedOperator.getActivities().size(); i++) {
       Activity activityList = matchedOperator.getActivities().get(i);
       MessageCli.ACTIVITY_ENTRY.printMessage(
           activityList.getActivityName(),
           activityList.getActivityId(),
-          matchedOperator.getOperatorName(),
+          activityList.getActivityType(),
           matchedOperator.getOperatorName());
     }
 
@@ -196,7 +199,7 @@ public class OperatorManagementSystem {
       return;
     }
     // Test #5,6 - create activity success with extra id letters
-    Activity newActivity = new Activity(activityName, null, operatorId, matchedOperator);
+    Activity newActivity = new Activity(activityName, activityType, operatorId, matchedOperator);
     int activityCount = matchedOperator.getActivities().size();
     String activityCountDigits = String.format("%03d", activityCount + 1);
     String activityId = operatorId + "-" + activityCountDigits;
