@@ -199,10 +199,10 @@ public class OperatorManagementSystem {
       return;
     }
     // Test #5,6 - create activity success with extra id letters
-    Activity newActivity = new Activity(activityName, activityType, operatorId, matchedOperator);
     int activityCount = matchedOperator.getActivities().size();
     String activityCountDigits = String.format("%03d", activityCount + 1);
     String activityId = operatorId + "-" + activityCountDigits;
+    Activity newActivity = new Activity(activityName, activityType, activityId, matchedOperator);
     matchedOperator.addActivity(newActivity);
     MessageCli.ACTIVITY_CREATED.printMessage(
         activityName, activityId, activityType, matchedOperator.getOperatorName());
