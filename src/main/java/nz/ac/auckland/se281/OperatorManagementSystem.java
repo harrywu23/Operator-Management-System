@@ -133,7 +133,9 @@ public class OperatorManagementSystem {
         operatorName, generateOperatorCode(newOperator), rawLocation.getFullName());
   }
 
-  public void viewActivities(String operatorId) {}
+  public void viewActivities(String operatorId) {
+    MessageCli.OPERATOR_NOT_FOUND.printMessage(operatorId);
+  }
 
   public void createActivity(String activityName, String activityType, String operatorId) {}
 
