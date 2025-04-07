@@ -183,6 +183,10 @@ public class OperatorManagementSystem {
       return;
     }
     // Test #5
+    Activity newActivity = new Activity(activityName, null, operatorId, matchedOperator);
+    matchedOperator.addActivity(newActivity);
+    MessageCli.ACTIVITY_CREATED.printMessage(
+        activityName, operatorId, activityType, matchedOperator.getOperatorName());
   }
 
   public void searchActivities(String keyword) {}
