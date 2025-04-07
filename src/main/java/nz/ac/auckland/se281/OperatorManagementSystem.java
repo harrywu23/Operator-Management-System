@@ -80,7 +80,7 @@ public class OperatorManagementSystem {
     } else if (operatorCount == 1) {
       Operator op = matchingOperators.get(0);
       Location rawLocation = op.getLocation();
-      String operatorCode = generateOperatorCode(op);
+      String operatorCode = op.getOperatorCode();
 
       MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
       MessageCli.OPERATOR_ENTRY.printMessage(
@@ -125,16 +125,30 @@ public class OperatorManagementSystem {
     Operator tempOperator = new Operator(operatorName, rawLocation, "TEMP");
     String operatorCode = generateOperatorCode(tempOperator);
 
-    // Create a new operator and add it to the list.
+    // Create a new operator and add it to the list - including operatorID NAME AND LOCATION
     Operator newOperator = new Operator(operatorName, rawLocation, operatorCode);
     operatorList.add(newOperator);
 
     MessageCli.OPERATOR_CREATED.printMessage(
-        operatorName, generateOperatorCode(newOperator), rawLocation.getFullName());
+        operatorName, newOperator.getOperatorCode(), rawLocation.getFullName());
   }
 
   public void viewActivities(String operatorId) {
-    MessageCli.OPERATOR_NOT_FOUND.printMessage(operatorId);
+
+    Operator matchedOperator = null;
+
+    // TEST # 1 - looping through operatorList to find the one that matches
+    for (Operator operator : operatorList) {
+      if (operator.getOperatorCode().equals(operatorId)) {
+        matchedOperator = operator;
+        break;
+      }
+    }
+
+    // Test #1 - is an invalid operator ID
+    if (matchedOperator == null) {
+      MessageCli.OPERATOR_NOT_FOUND.printMessage(operatorId);
+    }
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {}

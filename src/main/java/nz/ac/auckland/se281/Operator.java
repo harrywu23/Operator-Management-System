@@ -19,7 +19,7 @@ public class Operator {
     return this.location;
   }
 
-  public String operatorCode() {
+  public String getOperatorCode() {
     return this.operatorCode;
   }
 
