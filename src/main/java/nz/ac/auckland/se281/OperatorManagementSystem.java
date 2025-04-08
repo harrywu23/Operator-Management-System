@@ -235,8 +235,14 @@ public class OperatorManagementSystem {
   }
 
   public void searchActivities(String keyword) {
-
+    keyword = keyword.toLowerCase().trim();
     ArrayList<Activity> matchingActivity = new ArrayList<>();
+
+    // test case # 9 - no activities found
+    if (activityList.isEmpty()) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+      return;
+    }
 
     for (Activity activity : activityList) {
       Location rawLocation = activity.getLocation();
@@ -246,7 +252,7 @@ public class OperatorManagementSystem {
       String opName = activity.getActivityName().toLowerCase();
       String abbreviation = rawLocation.getLocationAbbreviation().toLowerCase();
 
-      // test 9 - search * keyword no activites
+      // test 10 search activies none found
       if (keyword.equals("*")
           || nameTeReo.contains(keyword)
           || nameEnglish.contains(keyword)
