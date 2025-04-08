@@ -243,38 +243,17 @@ public class OperatorManagementSystem {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
       return;
     }
-
     for (Activity activity : activityList) {
-      Location rawLocation = activity.getLocation();
-      String nameTeReo = rawLocation.getNameTeReo().toLowerCase();
-      String nameEnglish = rawLocation.getNameEnglish().toLowerCase();
-      String fullName = rawLocation.getFullName().toLowerCase();
-      String opName = activity.getActivityName().toLowerCase();
-      String abbreviation = rawLocation.getLocationAbbreviation().toLowerCase();
-
-      if (keyword.equals("*")
-          || nameTeReo.contains(keyword)
-          || nameEnglish.contains(keyword)
-          || fullName.contains(keyword)
-          || opName.contains(keyword)
-          || abbreviation.contains(keyword)) {
+      if (activity.matchesKeyword(keyword)) {
         matchingActivity.add(activity);
-
-        int activityCount = matchingActivity.size();
-
-        // // test 10 search activies none found
-        if (activityCount == 0) {
-          MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
-        } else if (activityCount == 1) {
-          Activity activity1 = matchingActivity.get(0);
-          Location rawLocation1 = activity.getLocation();
-          String operatorCode = activity.getOperator().getOperatorCode();
-
-          MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
-          MessageCli.OPERATOR_ENTRY.printMessage(
-              activity1.getActivityName(), operatorCode, rawLocation1.getFullName());
-        }
       }
+    }
+
+    int activityCount = matchingActivity.size();
+
+    // // test 10 search activies none found
+    if (activityCount == 0) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
     }
   }
 

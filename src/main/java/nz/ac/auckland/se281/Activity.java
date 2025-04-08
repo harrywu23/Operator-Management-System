@@ -7,12 +7,25 @@ public class Activity {
   private Operator operator;
   private Types.Location location;
 
-
   public Activity(String activityName, String activityType, String activityId, Operator operator) {
     this.activityName = activityName;
     this.activityType = activityType;
     this.activityId = activityId;
     this.operator = operator;
+    this.location = operator.getLocation();
+  }
+
+  // method to check if it matches keyword
+  public boolean matchesKeyword(String keyword) {
+    keyword = keyword.toLowerCase();
+    return activityName.toLowerCase().contains(keyword)
+        || activityType.toLowerCase().contains(keyword)
+        || activityId.toLowerCase().contains(keyword)
+        || location.getNameTeReo().toLowerCase().contains(keyword)
+        || location.getNameEnglish().toLowerCase().contains(keyword)
+        || location.getFullName().toLowerCase().contains(keyword)
+        || location.getLocationAbbreviation().toLowerCase().contains(keyword)
+        || keyword.equals("*");
   }
 
   public String getActivityId() {
