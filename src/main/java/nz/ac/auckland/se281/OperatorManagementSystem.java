@@ -252,7 +252,6 @@ public class OperatorManagementSystem {
       String opName = activity.getActivityName().toLowerCase();
       String abbreviation = rawLocation.getLocationAbbreviation().toLowerCase();
 
-      // test 10 search activies none found
       if (keyword.equals("*")
           || nameTeReo.contains(keyword)
           || nameEnglish.contains(keyword)
@@ -263,8 +262,17 @@ public class OperatorManagementSystem {
 
         int activityCount = matchingActivity.size();
 
+        // // test 10 search activies none found
         if (activityCount == 0) {
           MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+        } else if (activityCount == 1) {
+          Activity activity1 = matchingActivity.get(0);
+          Location rawLocation1 = activity.getLocation();
+          String operatorCode = activity.getOperator().getOperatorCode();
+
+          MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
+          MessageCli.OPERATOR_ENTRY.printMessage(
+              activity1.getActivityName(), operatorCode, rawLocation1.getFullName());
         }
       }
     }
