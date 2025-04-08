@@ -5,6 +5,8 @@ public class Activity {
   private String activityType;
   private String activityId;
   private Operator operator;
+  private Types.Location location;
+
 
   public Activity(String activityName, String activityType, String activityId, Operator operator) {
     this.activityName = activityName;
@@ -15,6 +17,10 @@ public class Activity {
 
   public String getActivityId() {
     return activityId;
+  }
+
+  public Types.Location getLocation() {
+    return this.location;
   }
 
   public String getActivityName() {

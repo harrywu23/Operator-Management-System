@@ -5,10 +5,12 @@ import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
   private ArrayList<Operator> operatorList;
+  private ArrayList<Activity> activityList;
 
   // Do not change the parameters of the constructor
   public OperatorManagementSystem() {
     operatorList = new ArrayList<Operator>();
+    activityList = new ArrayList<Activity>();
   }
 
   // method that generates a unique operator code based on the operator's name and location.
@@ -191,8 +193,6 @@ public class OperatorManagementSystem {
             matchedOperator.getOperatorName());
       }
     }
-    // MessageCli.ACTIVITIES_FOUND.printMessage(null);
-    // MessageCli.ACTIVITY_ENTRY.printMessage(null);
   }
 
   public void createActivity(String activityName, String activityType, String operatorId) {
@@ -216,21 +216,53 @@ public class OperatorManagementSystem {
         break;
       }
     }
+    // Test #4
     if (matchedOperator == null) {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_OPERATOR_ID.printMessage(operatorId);
       return;
     }
-    // Test #5,6 - create activity success with extra id letters
+    // Test #5,6 - create activity with extra id letters
     int activityCount = matchedOperator.getActivities().size();
     String activityCountDigits = String.format("%03d", activityCount + 1);
     String activityId = operatorId + "-" + activityCountDigits;
+
+    // create new activity
     Activity newActivity = new Activity(activityName, activityType, activityId, matchedOperator);
     matchedOperator.addActivity(newActivity);
+
     MessageCli.ACTIVITY_CREATED.printMessage(
         activityName, activityId, activityType, matchedOperator.getOperatorName());
   }
 
-  public void searchActivities(String keyword) {}
+  public void searchActivities(String keyword) {
+
+    ArrayList<Activity> matchingActivity = new ArrayList<>();
+
+    for (Activity activity : activityList) {
+      Location rawLocation = activity.getLocation();
+      String nameTeReo = rawLocation.getNameTeReo().toLowerCase();
+      String nameEnglish = rawLocation.getNameEnglish().toLowerCase();
+      String fullName = rawLocation.getFullName().toLowerCase();
+      String opName = activity.getActivityName().toLowerCase();
+      String abbreviation = rawLocation.getLocationAbbreviation().toLowerCase();
+
+      // test 9 - search * keyword no activites
+      if (keyword.equals("*")
+          || nameTeReo.contains(keyword)
+          || nameEnglish.contains(keyword)
+          || fullName.contains(keyword)
+          || opName.contains(keyword)
+          || abbreviation.contains(keyword)) {
+        matchingActivity.add(activity);
+
+        int activityCount = matchingActivity.size();
+
+        if (activityCount == 0) {
+          MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+        }
+      }
+    }
+  }
 
   public void addPublicReview(String activityId, String[] options) {}
 
