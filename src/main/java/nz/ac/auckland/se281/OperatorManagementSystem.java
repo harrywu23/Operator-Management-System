@@ -229,6 +229,7 @@ public class OperatorManagementSystem {
     // create new activity
     Activity newActivity = new Activity(activityName, activityType, activityId, matchedOperator);
     matchedOperator.addActivity(newActivity);
+    activityList.add(newActivity);
 
     MessageCli.ACTIVITY_CREATED.printMessage(
         activityName, activityId, activityType, matchedOperator.getOperatorName());
@@ -243,6 +244,7 @@ public class OperatorManagementSystem {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
       return;
     }
+
     for (Activity activity : activityList) {
       if (activity.matchesKeyword(keyword)) {
         matchingActivity.add(activity);
@@ -251,9 +253,21 @@ public class OperatorManagementSystem {
 
     int activityCount = matchingActivity.size();
 
-    // // test 10 search activies none found
+    // test 10 search activies none found
     if (activityCount == 0) {
       MessageCli.ACTIVITIES_FOUND.printMessage("are", "no", "ies", ".");
+    } else if (activityCount == 1) {
+      MessageCli.ACTIVITIES_FOUND.printMessage("is", "1", "y", ":");
+    } else {
+      MessageCli.ACTIVITIES_FOUND.printMessage("are", Integer.toString(activityCount), "ies", ":");
+    }
+
+    for (Activity activity : matchingActivity) {
+      MessageCli.ACTIVITY_ENTRY.printMessage(
+          activity.getActivityName(),
+          activity.getActivityId(),
+          activity.getActivityType(),
+          activity.getOperator().getOperatorName());
     }
   }
 

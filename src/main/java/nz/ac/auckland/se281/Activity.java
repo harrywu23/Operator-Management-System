@@ -17,7 +17,7 @@ public class Activity {
 
   // method to check if it matches keyword
   public boolean matchesKeyword(String keyword) {
-    keyword = keyword.toLowerCase();
+    keyword = keyword.trim().toLowerCase();
     return activityName.toLowerCase().contains(keyword)
         || activityType.toLowerCase().contains(keyword)
         || activityId.toLowerCase().contains(keyword)
