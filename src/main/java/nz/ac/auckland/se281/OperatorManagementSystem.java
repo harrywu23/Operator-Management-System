@@ -292,14 +292,52 @@ public class OperatorManagementSystem {
       MessageCli.REVIEW_NOT_ADDED_INVALID_ACTIVITY_ID.printMessage(activityId);
       return;
     }
-
+    // Test # 3 add public review ok
     MessageCli.REVIEW_ADDED.printMessage("Public", activityId, matchedActivity.getActivityName());
     return;
   }
 
-  public void addPrivateReview(String activityId, String[] options) {}
+  public void addPrivateReview(String activityId, String[] options) {
 
-  public void addExpertReview(String activityId, String[] options) {}
+    Activity matchedActivity = null;
+
+    for (Activity activity : activityList) {
+      if (activity.getActivityId().equals(activityId)) {
+        matchedActivity = activity;
+        break;
+      }
+    }
+
+    // Test add private review invalid activity
+    if (matchedActivity == null) {
+      MessageCli.REVIEW_NOT_ADDED_INVALID_ACTIVITY_ID.printMessage(activityId);
+      return;
+    }
+    // Test # 4 add private review ok
+    MessageCli.REVIEW_ADDED.printMessage("Private", activityId, matchedActivity.getActivityName());
+    return;
+  }
+
+  public void addExpertReview(String activityId, String[] options) {
+
+    Activity matchedActivity = null;
+
+    for (Activity activity : activityList) {
+      if (activity.getActivityId().equals(activityId)) {
+        matchedActivity = activity;
+        break;
+      }
+    }
+
+    // Test add Exppert review invalid activity
+    if (matchedActivity == null) {
+      MessageCli.REVIEW_NOT_ADDED_INVALID_ACTIVITY_ID.printMessage(activityId);
+      return;
+    }
+    // Test # 4 add Expert review ok
+    MessageCli.REVIEW_ADDED.printMessage("Expert", activityId, matchedActivity.getActivityName());
+    return;
+  }
 
   public void displayReviews(String activityId) {
     // Test case # 1 display reviews no reviews
