@@ -6,6 +6,7 @@ public class Activity {
   private String activityId;
   private Operator operator;
   private Types.Location location;
+  private int reviewCounter = 0;
 
   public Activity(String activityName, String activityType, String activityId, Operator operator) {
     this.activityName = activityName;
@@ -45,5 +46,10 @@ public class Activity {
 
   public Operator getOperator() {
     return operator;
+  }
+
+  public int getNextReviewNumber() {
+    reviewCounter++;
+    return reviewCounter;
   }
 }

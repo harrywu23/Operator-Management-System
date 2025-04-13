@@ -293,7 +293,9 @@ public class OperatorManagementSystem {
       return;
     }
     // Test # 3 add public review ok
-    MessageCli.REVIEW_ADDED.printMessage("Public", activityId, matchedActivity.getActivityName());
+    int reviewNumber = matchedActivity.getNextReviewNumber();
+    String reviewId = activityId + "-R" + reviewNumber;
+    MessageCli.REVIEW_ADDED.printMessage("Public", reviewId, matchedActivity.getActivityName());
     return;
   }
 
@@ -314,7 +316,9 @@ public class OperatorManagementSystem {
       return;
     }
     // Test # 4 add private review ok
-    MessageCli.REVIEW_ADDED.printMessage("Private", activityId, matchedActivity.getActivityName());
+    int reviewNumber = matchedActivity.getNextReviewNumber();
+    String reviewId = activityId + "-R" + reviewNumber;
+    MessageCli.REVIEW_ADDED.printMessage("Private", reviewId, matchedActivity.getActivityName());
     return;
   }
 
@@ -329,13 +333,15 @@ public class OperatorManagementSystem {
       }
     }
 
-    // Test add Exppert review invalid activity
+    // Test add Expert review invalid activity
     if (matchedActivity == null) {
       MessageCli.REVIEW_NOT_ADDED_INVALID_ACTIVITY_ID.printMessage(activityId);
       return;
     }
     // Test # 4 add Expert review ok
-    MessageCli.REVIEW_ADDED.printMessage("Expert", activityId, matchedActivity.getActivityName());
+    int reviewNumber = matchedActivity.getNextReviewNumber();
+    String reviewId = activityId + "-R" + reviewNumber;
+    MessageCli.REVIEW_ADDED.printMessage("Expert", reviewId, matchedActivity.getActivityName());
     return;
   }
 
