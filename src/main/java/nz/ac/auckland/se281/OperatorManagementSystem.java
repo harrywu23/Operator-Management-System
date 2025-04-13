@@ -281,7 +281,19 @@ public class OperatorManagementSystem {
 
   public void addExpertReview(String activityId, String[] options) {}
 
-  public void displayReviews(String activityId) {}
+  public void displayReviews(String activityId) {
+    // Test case # 1 display reviews no reviews
+    Activity matchedActivity = null;
+
+    for (Activity activity : activityList) {
+      if (activity.getActivityId().equals(activityId)) {
+        matchedActivity = activity;
+        break;
+      }
+    }
+    String matchedActivityName = matchedActivity.getActivityName();
+    MessageCli.REVIEWS_FOUND.printMessage("are", "no", "s", matchedActivityName);
+  }
 
   public void endorseReview(String reviewId) {}
 
