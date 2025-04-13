@@ -296,6 +296,16 @@ public class OperatorManagementSystem {
     int reviewNumber = matchedActivity.getNextReviewNumber();
     String reviewId = activityId + "-R" + reviewNumber;
     MessageCli.REVIEW_ADDED.printMessage("Public", reviewId, matchedActivity.getActivityName());
+
+    // Test # 8 saving the public review info into system
+    String reviewerName = options[0];
+    boolean isAnonymous = options[1].equals("y");
+    String rating = options[2];
+    String comment = options[3];
+
+    Review newReview = new PublicReview(reviewerName, isAnonymous, rating, comment);
+    matchedActivity.addReview(newReview);
+
     return;
   }
 
@@ -355,8 +365,13 @@ public class OperatorManagementSystem {
         break;
       }
     }
-    String matchedActivityName = matchedActivity.getActivityName();
-    MessageCli.REVIEWS_FOUND.printMessage("are", "no", "s", matchedActivityName);
+    if (matchedActivity.getReviews().size() == 0) {
+      String matchedActivityName = matchedActivity.getActivityName();
+      MessageCli.REVIEWS_FOUND.printMessage("are", "no", "s", matchedActivityName);
+    } else if (matchedActivity.getReviews().size() == 1) {
+      MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
+      MessageCli.REVIEW_ENTRY_HEADER.printMessage();
+    }
   }
 
   public void endorseReview(String reviewId) {}

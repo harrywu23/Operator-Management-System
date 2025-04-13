@@ -14,8 +14,6 @@ public abstract class Review {
     this.comment = comment;
   }
 
-  public abstract String toString();
-
   public String getReviewId() {
     return reviewId;
   }
@@ -30,6 +28,10 @@ public abstract class Review {
 
   public String getReviewerName() {
     return reviewerName;
+  }
+
+  public void setReviewId(String reviewId) {
+    this.reviewId = reviewId;
   }
 
   public boolean isAnonymous() {

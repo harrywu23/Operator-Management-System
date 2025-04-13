@@ -1,5 +1,7 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class Activity {
   private String activityName;
   private String activityType;
@@ -7,6 +9,7 @@ public class Activity {
   private Operator operator;
   private Types.Location location;
   private int reviewCounter = 0;
+  private ArrayList<Review> reviews;
 
   public Activity(String activityName, String activityType, String activityId, Operator operator) {
     this.activityName = activityName;
@@ -14,6 +17,7 @@ public class Activity {
     this.activityId = activityId;
     this.operator = operator;
     this.location = operator.getLocation();
+    reviews = new ArrayList<>();
   }
 
   // method to check if it matches keyword
@@ -46,6 +50,14 @@ public class Activity {
 
   public Operator getOperator() {
     return operator;
+  }
+
+  public ArrayList<Review> getReviews() {
+    return reviews;
+  }
+
+  public void addReview(Review review) {
+    reviews.add(review);
   }
 
   public int getNextReviewNumber() {
