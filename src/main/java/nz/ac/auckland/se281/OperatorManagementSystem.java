@@ -199,12 +199,16 @@ public class OperatorManagementSystem {
 
     activityName = activityName.trim();
 
-    if (activityName == null) {
+    // activity name invalid or nothing entered but blank space
+    if (activityName == null || activityName.length() == 0) {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
       return;
+    }
 
-      // Test #3 activity name is too short
-    } else if (activityName.length() < 3) {
+    activityType = Types.ActivityType.fromString(activityType).toString();
+
+    // Test #3 activity name is too short
+    if (activityName.length() < 3) {
       MessageCli.ACTIVITY_NOT_CREATED_INVALID_ACTIVITY_NAME.printMessage(activityName);
       return;
     }
