@@ -363,7 +363,18 @@ public class OperatorManagementSystem {
     int reviewNumber = matchedActivity.getNextReviewNumber();
     String reviewId = activityId + "-R" + reviewNumber;
     MessageCli.REVIEW_ADDED.printMessage("Expert", reviewId, matchedActivity.getActivityName());
-    return;
+
+    // Test # 9 saving the expert review info into system
+    String reviewerName = options[0];
+    boolean isAnonymous = options[1].equals("y");
+    String rating = options[2];
+    String comment = options[3];
+
+    Review newReview = new ExpertReview(reviewerName, isAnonymous, rating, comment);
+    matchedActivity.addReview(newReview);
+    // storing the new reviewID in the reviewClass and setting it so we can get it later
+    newReview.setReviewId(reviewId);
+    newReview.setReviewType(Types.ReviewType.EXPERT);
   }
 
   public void displayReviews(String activityId) {
@@ -398,6 +409,7 @@ public class OperatorManagementSystem {
         MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
         MessageCli.REVIEW_ENTRY_HEADER.printMessage(
             rating, "5", reviewType, reviewId, reviewerName);
+        MessageCli.REVIEW_ENTRY_RESOLVED.printMessage("-");
         MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
       }
     }
