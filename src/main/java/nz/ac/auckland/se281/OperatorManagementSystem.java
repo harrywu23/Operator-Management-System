@@ -305,6 +305,7 @@ public class OperatorManagementSystem {
 
     Review newReview = new PublicReview(reviewerName, isAnonymous, rating, comment);
     matchedActivity.addReview(newReview);
+    // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
   }
 
@@ -365,23 +366,26 @@ public class OperatorManagementSystem {
       }
     }
 
+    // if no reviews @ activity
     if (matchedActivity.getReviews().size() == 0) {
       String matchedActivityName = matchedActivity.getActivityName();
       MessageCli.REVIEWS_FOUND.printMessage("are", "no", "s", matchedActivityName);
       return;
-
-      // Test # 8 saving the public review info into system and DISPLAYING IT
     }
+
+    // Test # 8 saving the public review info into system and DISPLAYING IT
     if (matchedActivity.getReviews().size() == 1) {
       for (Review review : matchedActivity.getReviews()) {
+
         // Access the values from the Review object
         String rating = review.getRating();
         String reviewId = review.getReviewId();
         String reviewerName = review.getReviewerName();
+        String reviewComment = review.getComment();
 
         MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
         MessageCli.REVIEW_ENTRY_HEADER.printMessage(rating, "5", "Public", reviewId, reviewerName);
-        MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage();
+        MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
       }
     }
   }
