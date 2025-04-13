@@ -275,7 +275,24 @@ public class OperatorManagementSystem {
     }
   }
 
-  public void addPublicReview(String activityId, String[] options) {}
+  public void addPublicReview(String activityId, String[] options) {
+
+    Activity matchedActivity = null;
+
+    // Search for the activity with the given ID
+    for (Activity activity : activityList) {
+      if (activity.getActivityId().equals(activityId)) {
+        matchedActivity = activity;
+        break;
+      }
+    }
+
+    // Test # 2 add public review invalid activity
+    if (matchedActivity == null) {
+      MessageCli.REVIEW_NOT_ADDED_INVALID_ACTIVITY_ID.printMessage(activityId);
+      return;
+    }
+  }
 
   public void addPrivateReview(String activityId, String[] options) {}
 
