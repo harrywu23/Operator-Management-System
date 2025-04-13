@@ -9,7 +9,7 @@ public class Activity {
   private Operator operator;
   private Types.Location location;
   private int reviewCounter = 0;
-  private ArrayList<Review> reviews;
+  private ArrayList<Review> reviews = new ArrayList<Review>();
 
   public Activity(String activityName, String activityType, String activityId, Operator operator) {
     this.activityName = activityName;
@@ -17,7 +17,6 @@ public class Activity {
     this.activityId = activityId;
     this.operator = operator;
     this.location = operator.getLocation();
-    reviews = new ArrayList<>();
   }
 
   // method to check if it matches keyword
