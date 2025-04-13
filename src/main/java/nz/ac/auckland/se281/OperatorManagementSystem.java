@@ -366,9 +366,9 @@ public class OperatorManagementSystem {
 
     // Test # 9 saving the expert review info into system
     String reviewerName = options[0];
-    boolean isAnonymous = options[1].equals("y");
-    String rating = options[2];
-    String comment = options[3];
+    boolean isAnonymous = options[3].equals("y");
+    String rating = options[1];
+    String comment = options[2];
 
     Review newReview = new ExpertReview(reviewerName, isAnonymous, rating, comment);
     matchedActivity.addReview(newReview);
@@ -406,11 +406,31 @@ public class OperatorManagementSystem {
         String reviewComment = review.getComment();
         String reviewType = review.getReviewType();
 
-        MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
-        MessageCli.REVIEW_ENTRY_HEADER.printMessage(
-            rating, "5", reviewType, reviewId, reviewerName);
-        MessageCli.REVIEW_ENTRY_RESOLVED.printMessage("-");
-        MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+        // print out the info for public review
+        if (review.getReviewType() == Types.ReviewType.PUBLIC.toString()) {
+          MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
+          MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+              rating, "5", reviewType, reviewId, reviewerName);
+          MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+          return;
+        }
+        // if private review
+        if (review.getReviewType() == Types.ReviewType.PRIVATE.toString()) {
+          MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
+          MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+              rating, "5", reviewType, reviewId, reviewerName);
+          MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+          MessageCli.REVIEW_ENTRY_RESOLVED.printMessage("-");
+        }
+        // Test # 10 printing extra things if expert review
+        // print out info for expert review
+        if (review.getReviewType() == Types.ReviewType.EXPERT.toString()) {
+          MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
+          MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+              rating, "5", reviewType, reviewId, reviewerName);
+          MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+          MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
+        }
       }
     }
   }
