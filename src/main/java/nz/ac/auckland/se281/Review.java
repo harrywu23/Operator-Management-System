@@ -1,17 +1,28 @@
 package nz.ac.auckland.se281;
 
+import nz.ac.auckland.se281.Types.ReviewType;
+
 public abstract class Review {
-  protected String reviewId;
-  protected String rating;
-  protected String comment;
-  protected String reviewerName;
-  protected boolean isAnonymous;
+  private String reviewId;
+  private String rating;
+  private String comment;
+  private String reviewerName;
+  private boolean isAnonymous;
+  private String reviewType;
 
   public Review(String reviewerName, boolean isAnonymous, String rating, String comment) {
     this.reviewerName = reviewerName;
     this.isAnonymous = isAnonymous;
     this.rating = rating;
     this.comment = comment;
+  }
+
+  public String getReviewType() {
+    return reviewType;
+  }
+
+  public void setReviewType(ReviewType reviewType) {
+    this.reviewType = reviewType.toString();
   }
 
   public String getReviewId() {

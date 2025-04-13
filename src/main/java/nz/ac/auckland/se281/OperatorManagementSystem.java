@@ -307,6 +307,7 @@ public class OperatorManagementSystem {
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
+    newReview.setReviewType(Types.ReviewType.PUBLIC);
   }
 
   public void addPrivateReview(String activityId, String[] options) {
@@ -329,7 +330,17 @@ public class OperatorManagementSystem {
     int reviewNumber = matchedActivity.getNextReviewNumber();
     String reviewId = activityId + "-R" + reviewNumber;
     MessageCli.REVIEW_ADDED.printMessage("Private", reviewId, matchedActivity.getActivityName());
-    return;
+    // Test # 9 saving private review info
+    String reviewerName = options[0];
+    boolean isAnonymous = options[1].equals("y");
+    String rating = options[2];
+    String comment = options[3];
+
+    Review newReview = new PrivateReview(reviewerName, isAnonymous, rating, comment);
+    matchedActivity.addReview(newReview);
+    // storing the new reviewID in the reviewClass and setting it so we can get it later
+    newReview.setReviewId(reviewId);
+    newReview.setReviewType(Types.ReviewType.PRIVATE);
   }
 
   public void addExpertReview(String activityId, String[] options) {
@@ -382,9 +393,11 @@ public class OperatorManagementSystem {
         String reviewId = review.getReviewId();
         String reviewerName = review.getReviewerName();
         String reviewComment = review.getComment();
+        String reviewType = review.getReviewType();
 
         MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
-        MessageCli.REVIEW_ENTRY_HEADER.printMessage(rating, "5", "Public", reviewId, reviewerName);
+        MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+            rating, "5", reviewType, reviewId, reviewerName);
         MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
       }
     }
