@@ -414,7 +414,12 @@ public class OperatorManagementSystem {
           MessageCli.REVIEW_ENTRY_HEADER.printMessage(
               rating, "5", reviewType, reviewId, reviewerName);
           MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
-          return;
+          if (review instanceof PublicReview) {
+            PublicReview pubReview = (PublicReview) review;
+            if (pubReview.endorseReview()) {
+              MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
+            }
+          }
         }
         // if private review
         if (review.getReviewType() == Types.ReviewType.PRIVATE.toString()) {
@@ -438,6 +443,7 @@ public class OperatorManagementSystem {
   }
 
   public void endorseReview(String reviewId) {
+
     boolean isPublic = false;
 
     for (Activity activity : activityList) { // loop through all activities
@@ -451,6 +457,12 @@ public class OperatorManagementSystem {
           }
         }
         MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
+
+        // setting endorse to true
+        if (review instanceof PublicReview) {
+          PublicReview pubReview = (PublicReview) review;
+          pubReview.endorseReview();
+        }
       }
     }
   }

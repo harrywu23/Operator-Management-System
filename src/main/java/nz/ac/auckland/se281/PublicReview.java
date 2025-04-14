@@ -8,8 +8,9 @@ public class PublicReview extends Review {
     this.endorsed = false;
   }
 
-  public void endorse() {
+  public boolean endorseReview() {
     this.endorsed = true;
+    return this.endorsed;
   }
 
   public boolean isEndorsed() {
