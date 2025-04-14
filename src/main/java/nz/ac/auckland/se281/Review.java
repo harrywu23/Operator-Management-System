@@ -7,12 +7,10 @@ public abstract class Review {
   private String rating;
   private String comment;
   private String reviewerName;
-  private boolean isAnonymous;
   private String reviewType;
 
-  public Review(String reviewerName, boolean isAnonymous, String rating, String comment) {
+  public Review(String reviewerName, String rating, String comment) {
     this.reviewerName = reviewerName;
-    this.isAnonymous = isAnonymous;
     this.rating = rating;
     this.comment = comment;
   }
@@ -43,9 +41,5 @@ public abstract class Review {
 
   public void setReviewId(String reviewId) {
     this.reviewId = reviewId;
-  }
-
-  public boolean isAnonymous() {
-    return isAnonymous;
   }
 }

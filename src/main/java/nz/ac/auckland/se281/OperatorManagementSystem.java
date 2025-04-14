@@ -299,11 +299,10 @@ public class OperatorManagementSystem {
 
     // Test # 8 saving the public review info into system
     String reviewerName = options[0];
-    boolean isAnonymous = options[1].equals("y");
     String rating = options[2];
     String comment = options[3];
 
-    Review newReview = new PublicReview(reviewerName, isAnonymous, rating, comment);
+    Review newReview = new PublicReview(reviewerName, rating, comment);
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
@@ -333,12 +332,12 @@ public class OperatorManagementSystem {
     // Test # 9 saving private review info
 
     String reviewerName = options[0];
-    boolean isAnonymous = options[4].equals("y");
+    boolean followUpRequired = options[4].equals("y");
     String rating = options[2];
     String comment = options[3];
     String email = options[1];
 
-    Review newReview = new PrivateReview(reviewerName, isAnonymous, rating, comment, email);
+    Review newReview = new PrivateReview(reviewerName, rating, comment, email, followUpRequired);
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
@@ -368,11 +367,10 @@ public class OperatorManagementSystem {
 
     // Test # 9 saving the expert review info into system
     String reviewerName = options[0];
-    boolean isAnonymous = options[3].equals("y");
     String rating = options[1];
     String comment = options[2];
 
-    Review newReview = new ExpertReview(reviewerName, isAnonymous, rating, comment);
+    Review newReview = new ExpertReview(reviewerName, rating, comment);
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
@@ -427,7 +425,15 @@ public class OperatorManagementSystem {
           MessageCli.REVIEW_ENTRY_HEADER.printMessage(
               rating, "5", reviewType, reviewId, reviewerName);
           MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
-          MessageCli.REVIEW_ENTRY_RESOLVED.printMessage("-");
+          if (review instanceof PrivateReview) {
+            PrivateReview privateReview = (PrivateReview) review;
+
+            if (privateReview.isResolved()) {
+              MessageCli.REVIEW_ENTRY_RESOLVED.printMessage(privateReview.getOperatorResponse());
+            } else if (privateReview.isFollowUpRequired()) {
+              MessageCli.REVIEW_ENTRY_FOLLOW_UP.printMessage(privateReview.getEmail());
+            }
+          }
         }
         // Test # 10 printing extra things if expert review
         // print out info for expert review
