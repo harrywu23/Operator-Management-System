@@ -482,6 +482,7 @@ public class OperatorManagementSystem {
         }
       }
     }
+    // If not found
     MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
   }
 
@@ -506,7 +507,26 @@ public class OperatorManagementSystem {
     MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
   }
 
-  public void uploadReviewImage(String reviewId, String imageName) {}
+  public void uploadReviewImage(String reviewId, String imageName) {
+    for (Activity activity : activityList) {
+      for (Review review : activity.getReviews()) {
+        if (review.getReviewId().equals(reviewId)) {
+          // Found the review. now check if Private
+          if (review instanceof ExpertReview) {
+            ExpertReview expertReview = (ExpertReview) review;
+            // upload image logic
+            expertReview.uploadImage(imageName);
+            MessageCli.REVIEW_IMAGE_ADDED.printMessage(reviewId);
+          } else {
+            MessageCli.REVIEW_IMAGE_NOT_ADDED_NOT_EXPERT.printMessage(reviewId);
+          }
+          return;
+        }
+      }
+    }
+    // If not found
+    MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
+  }
 
   public void displayTopActivities() {}
 }
