@@ -1,7 +1,6 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
-import nz.ac.auckland.se281.Types.Location;
 
 public class OperatorManagementSystem {
   private ArrayList<Operator> operatorList;
@@ -16,7 +15,7 @@ public class OperatorManagementSystem {
   // method that generates a unique operator code based on the operator's name and location.
   private String generateOperatorCode(Operator operator) {
     String operatorName = operator.getOperatorName();
-    Location rawLocation = operator.getLocation();
+    Types.Location rawLocation = operator.getLocation();
 
     // Build acronym from the operator name
     String[] words = operatorName.split(" ");
@@ -33,7 +32,7 @@ public class OperatorManagementSystem {
       if (op == operator) {
         break;
       }
-      Location opLoc = op.getLocation();
+      Types.Location opLoc = op.getLocation();
       if (opLoc.getLocationAbbreviation().equalsIgnoreCase(rawLocation.getLocationAbbreviation())) {
         locationCount++;
       }
@@ -56,7 +55,7 @@ public class OperatorManagementSystem {
 
     // Loop through all operators to find matches based on the keyword.
     for (Operator operator : operatorList) {
-      Location rawLocation = operator.getLocation();
+      Types.Location rawLocation = operator.getLocation();
       String nameTeReo = rawLocation.getNameTeReo().toLowerCase();
       String nameEnglish = rawLocation.getNameEnglish().toLowerCase();
       String fullName = rawLocation.getFullName().toLowerCase();
@@ -81,7 +80,7 @@ public class OperatorManagementSystem {
       MessageCli.OPERATORS_FOUND.printMessage("are", "no", "s", ".");
     } else if (operatorCount == 1) {
       Operator op = matchingOperators.get(0);
-      Location rawLocation = op.getLocation();
+      Types.Location rawLocation = op.getLocation();
       String operatorCode = op.getOperatorCode();
 
       MessageCli.OPERATORS_FOUND.printMessage("is", "1", "", ":");
@@ -92,7 +91,7 @@ public class OperatorManagementSystem {
       MessageCli.OPERATORS_FOUND.printMessage("are", Integer.toString(operatorCount), "s", ":");
 
       for (Operator op : matchingOperators) {
-        Location rawLocation = op.getLocation(); // Get location.
+        Types.Location rawLocation = op.getLocation(); // Get location.
         String operatorCode = generateOperatorCode(op); // Generate the operator code.
         MessageCli.OPERATOR_ENTRY.printMessage(
             op.getOperatorName(), operatorCode, rawLocation.getFullName());
@@ -105,7 +104,7 @@ public class OperatorManagementSystem {
     // Trim any spaces in the operator name and check if it is at least 3 characters long
     operatorName = operatorName.trim();
 
-    Location rawLocation = Location.fromString(location);
+    Types.Location rawLocation = Types.Location.fromString(location);
     if (rawLocation == null) {
       MessageCli.OPERATOR_NOT_CREATED_INVALID_LOCATION.printMessage(location);
       return;
@@ -535,5 +534,23 @@ public class OperatorManagementSystem {
     MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
   }
 
-  public void displayTopActivities() {}
+  public void displayTopActivities() {
+    for (Types.Location location : Types.Location.values()) {
+      boolean hasReviewedActivity = false;
+
+      for (Activity activity : activityList) {
+        if (activity.getLocation().equals(location))
+          for (Review review : activity.getReviews()) {
+            if (review instanceof PublicReview || review instanceof ExpertReview) {
+              hasReviewedActivity = true;
+              break;
+            }
+          }
+      }
+
+      if (!hasReviewedActivity) {
+        MessageCli.NO_REVIEWED_ACTIVITIES.printMessage(location.toString());
+      }
+    }
+  }
 }
