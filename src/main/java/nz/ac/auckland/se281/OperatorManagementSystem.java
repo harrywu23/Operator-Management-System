@@ -546,24 +546,28 @@ public class OperatorManagementSystem {
         }
 
         ArrayList<String> ratings = new ArrayList<>();
-        int ratingIntegerTotal = 0;
 
         for (Review review : activity.getReviews()) {
           if (review instanceof PublicReview || review instanceof ExpertReview) {
-            hasReviewedActivity = true;
             ratings.add(review.getRating());
           }
+        }
+        if (ratings.isEmpty()) {
+          continue;
+        }
 
-          for (int i = 0; i < ratings.size(); i++) {
-            ratingIntegerTotal += Integer.parseInt(ratings.get(i));
-          }
+        hasReviewedActivity = true;
 
-          int averageRating = ratingIntegerTotal / ratings.size();
+        int ratingIntegerTotal = 0;
+        for (String rating : ratings) {
+          ratingIntegerTotal += Integer.parseInt(rating);
+        }
 
-          if (averageRating > topAverageRating) {
-            topAverageRating = averageRating;
-            topActivity = activity;
-          }
+        int averageRating = ratingIntegerTotal / ratings.size();
+
+        if (averageRating > topAverageRating) {
+          topAverageRating = averageRating;
+          topActivity = activity;
         }
       }
 
