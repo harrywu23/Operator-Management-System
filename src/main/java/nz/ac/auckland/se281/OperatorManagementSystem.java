@@ -535,31 +535,35 @@ public class OperatorManagementSystem {
   }
 
   public void displayTopActivities() {
-    ArrayList<String> ratings = new ArrayList<>();
-    int ratingIntegerTotal = 0;
-
     for (Types.Location location : Types.Location.values()) {
       boolean hasReviewedActivity = false;
 
       for (Activity activity : activityList) {
-        if (activity.getLocation().equals(location))
-          for (Review review : activity.getReviews()) {
-            if (review instanceof PublicReview || review instanceof ExpertReview) {
-              hasReviewedActivity = true;
-              ratings.add(review.getRating());
-            }
+        if (!activity.getLocation().equals(location)) {
+          continue;
+        }
+
+        ArrayList<String> ratings = new ArrayList<>();
+        int ratingIntegerTotal = 0;
+
+        for (Review review : activity.getReviews()) {
+          if (review instanceof PublicReview || review instanceof ExpertReview) {
+            hasReviewedActivity = true;
+            ratings.add(review.getRating());
           }
 
-        // If there are reviewed activities
-        if (hasReviewedActivity) {
           for (int i = 0; i < ratings.size(); i++) {
             ratingIntegerTotal += Integer.parseInt(ratings.get(i));
           }
+
           int averageRating = ratingIntegerTotal / ratings.size();
           String averageString = Integer.toString(averageRating);
 
-          MessageCli.TOP_ACTIVITY.printMessage(
-              location.toString(), activity.getActivityName(), averageString);
+          // If there are reviewed activities
+          if (hasReviewedActivity) {
+            MessageCli.TOP_ACTIVITY.printMessage(
+                location.toString(), activity.getActivityName(), averageString);
+          }
         }
       }
       // If there are no reviewed activities
