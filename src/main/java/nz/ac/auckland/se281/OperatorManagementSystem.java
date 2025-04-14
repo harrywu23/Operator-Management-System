@@ -566,6 +566,7 @@ public class OperatorManagementSystem {
           }
         }
       }
+
       if (hasReviewedActivity && topActivity != null) {
         MessageCli.TOP_ACTIVITY.printMessage(
             location.toString(), topActivity.getActivityName(), Integer.toString(topAverageRating));
