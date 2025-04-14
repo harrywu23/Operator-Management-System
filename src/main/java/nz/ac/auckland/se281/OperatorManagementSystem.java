@@ -409,20 +409,20 @@ public class OperatorManagementSystem {
         String reviewType = review.getReviewType();
 
         // print out the info for public review
-        if (review.getReviewType() == Types.ReviewType.PUBLIC.toString()) {
+        if (review.getReviewType().equals(Types.ReviewType.PUBLIC.toString())) {
           MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
           MessageCli.REVIEW_ENTRY_HEADER.printMessage(
               rating, "5", reviewType, reviewId, reviewerName);
           MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
           if (review instanceof PublicReview) {
             PublicReview pubReview = (PublicReview) review;
-            if (pubReview.endorseReview()) {
+            if (pubReview.isEndorsed()) {
               MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
             }
           }
         }
         // if private review
-        if (review.getReviewType() == Types.ReviewType.PRIVATE.toString()) {
+        if (review.getReviewType().equals(Types.ReviewType.PRIVATE.toString())) {
           MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
           MessageCli.REVIEW_ENTRY_HEADER.printMessage(
               rating, "5", reviewType, reviewId, reviewerName);
@@ -431,7 +431,7 @@ public class OperatorManagementSystem {
         }
         // Test # 10 printing extra things if expert review
         // print out info for expert review
-        if (review.getReviewType() == Types.ReviewType.EXPERT.toString()) {
+        if (review.getReviewType().equals(Types.ReviewType.EXPERT.toString())) {
           MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
           MessageCli.REVIEW_ENTRY_HEADER.printMessage(
               rating, "5", reviewType, reviewId, reviewerName);
@@ -444,30 +444,44 @@ public class OperatorManagementSystem {
 
   public void endorseReview(String reviewId) {
 
-    boolean isPublic = false;
-
-    for (Activity activity : activityList) { // loop through all activities
-      for (Review review : activity.getReviews()) { // loop through each review in the activity
-        // checking if the review is a PublicReview sub class
-        if (review.getClass() == PublicReview.class) {
-          isPublic = true;
-          if (review.getReviewId().equals(reviewId) && isPublic) { // if the review ID matches
-            MessageCli.REVIEW_ENDORSED.printMessage(review.getReviewId());
-            return;
+    for (Activity activity : activityList) {
+      for (Review review : activity.getReviews()) {
+        if (review.getReviewId().equals(reviewId)) {
+          // Found matchingID. Check if it's public
+          if (review instanceof PublicReview) {
+            PublicReview pubReview = (PublicReview) review;
+            pubReview.endorseReview();
+            MessageCli.REVIEW_ENDORSED.printMessage(reviewId);
+          } else {
+            MessageCli.REVIEW_NOT_ENDORSED.printMessage(reviewId);
           }
-        }
-        MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
-
-        // setting endorse to true
-        if (review instanceof PublicReview) {
-          PublicReview pubReview = (PublicReview) review;
-          pubReview.endorseReview();
+          return;
         }
       }
     }
+    MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
   }
 
-  public void resolveReview(String reviewId, String response) {}
+  public void resolveReview(String reviewId, String response) {
+    for (Activity activity : activityList) {
+      for (Review review : activity.getReviews()) {
+        if (review.getReviewId().equals(reviewId)) {
+          // Found the review. now check if Private
+          if (review instanceof PrivateReview) {
+            PrivateReview privateReview = (PrivateReview) review;
+            privateReview.resolveReview(response); // pass response to set it
+            MessageCli.REVIEW_RESOLVED.printMessage(reviewId);
+          } else {
+            MessageCli.REVIEW_NOT_RESOLVED.printMessage(reviewId);
+          }
+          return;
+        }
+      }
+    }
+
+    // If not found
+    MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
+  }
 
   public void uploadReviewImage(String reviewId, String imageName) {}
 
