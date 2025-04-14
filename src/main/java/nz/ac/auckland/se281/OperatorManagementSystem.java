@@ -331,12 +331,14 @@ public class OperatorManagementSystem {
     String reviewId = activityId + "-R" + reviewNumber;
     MessageCli.REVIEW_ADDED.printMessage("Private", reviewId, matchedActivity.getActivityName());
     // Test # 9 saving private review info
+
     String reviewerName = options[0];
-    boolean isAnonymous = options[1].equals("y");
+    boolean isAnonymous = options[4].equals("y");
     String rating = options[2];
     String comment = options[3];
+    String email = options[1];
 
-    Review newReview = new PrivateReview(reviewerName, isAnonymous, rating, comment);
+    Review newReview = new PrivateReview(reviewerName, isAnonymous, rating, comment, email);
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
@@ -435,7 +437,23 @@ public class OperatorManagementSystem {
     }
   }
 
-  public void endorseReview(String reviewId) {}
+  public void endorseReview(String reviewId) {
+    boolean isPublic = false;
+
+    for (Activity activity : activityList) { // loop through all activities
+      for (Review review : activity.getReviews()) { // loop through each review in the activity
+        // checking if the review is a PublicReview sub class
+        if (review.getClass() == PublicReview.class) {
+          isPublic = true;
+          if (review.getReviewId().equals(reviewId) && isPublic) { // if the review ID matches
+            MessageCli.REVIEW_ENDORSED.printMessage(review.getReviewId());
+            return;
+          }
+        }
+        MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
+      }
+    }
+  }
 
   public void resolveReview(String reviewId, String response) {}
 
