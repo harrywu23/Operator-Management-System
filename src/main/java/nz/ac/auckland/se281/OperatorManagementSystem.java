@@ -543,11 +543,14 @@ public class OperatorManagementSystem {
           for (Review review : activity.getReviews()) {
             if (review instanceof PublicReview || review instanceof ExpertReview) {
               hasReviewedActivity = true;
-              break;
+            }
+
+            if (hasReviewedActivity) {
+              MessageCli.TOP_ACTIVITY.printMessage(
+                  location.toString(), activity.getActivityName(), review.getRating());
             }
           }
       }
-
       if (!hasReviewedActivity) {
         MessageCli.NO_REVIEWED_ACTIVITIES.printMessage(location.toString());
       }
