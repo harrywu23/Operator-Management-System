@@ -424,7 +424,7 @@ public class OperatorManagementSystem {
             }
             // printing review comment
             MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
-            // review is endorsed
+            // Test case #11 printing out public review if its endorsed
             if (pubReview.isEndorsed()) {
               MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
             }
@@ -439,6 +439,7 @@ public class OperatorManagementSystem {
           if (review instanceof PrivateReview) {
             PrivateReview privateReview = (PrivateReview) review;
 
+            // Test case # 13 resolve private review
             if (privateReview.isResolved()) {
               MessageCli.REVIEW_ENTRY_RESOLVED.printMessage(privateReview.getOperatorResponse());
             } else if (privateReview.isFollowUpRequired()) {
@@ -457,7 +458,9 @@ public class OperatorManagementSystem {
             ExpertReview expertReview = (ExpertReview) review;
             if (expertReview.isRecommended()) {
               MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
-              return;
+            }
+            if (expertReview.getImageName() != null) {
+              MessageCli.REVIEW_ENTRY_IMAGES.printMessage(expertReview.getImageName());
             }
           }
         }
@@ -494,6 +497,8 @@ public class OperatorManagementSystem {
           if (review instanceof PrivateReview) {
             PrivateReview privateReview = (PrivateReview) review;
             privateReview.resolveReview(response); // pass response to set it
+
+            // Test case # 13 resolve private review
             MessageCli.REVIEW_RESOLVED.printMessage(reviewId);
           } else {
             MessageCli.REVIEW_NOT_RESOLVED.printMessage(reviewId);
@@ -503,7 +508,7 @@ public class OperatorManagementSystem {
       }
     }
 
-    // If not found
+    // Test #12 resolve private review not found
     MessageCli.REVIEW_NOT_FOUND.printMessage(reviewId);
   }
 
@@ -516,7 +521,7 @@ public class OperatorManagementSystem {
             ExpertReview expertReview = (ExpertReview) review;
             // upload image logic
             expertReview.uploadImage(imageName);
-            MessageCli.REVIEW_IMAGE_ADDED.printMessage(reviewId);
+            MessageCli.REVIEW_IMAGE_ADDED.printMessage(expertReview.getImageName(), reviewId);
           } else {
             MessageCli.REVIEW_IMAGE_NOT_ADDED_NOT_EXPERT.printMessage(reviewId);
           }
