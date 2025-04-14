@@ -301,8 +301,9 @@ public class OperatorManagementSystem {
     String reviewerName = options[0];
     String rating = options[2];
     String comment = options[3];
+    boolean isAnonymous = options[1].equalsIgnoreCase("y");
 
-    Review newReview = new PublicReview(reviewerName, rating, comment);
+    Review newReview = new PublicReview(reviewerName, isAnonymous, rating, comment);
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
@@ -409,11 +410,20 @@ public class OperatorManagementSystem {
         // print out the info for public review
         if (review.getReviewType().equals(Types.ReviewType.PUBLIC.toString())) {
           MessageCli.REVIEWS_FOUND.printMessage("is", "1", "", matchedActivity.getActivityName());
-          MessageCli.REVIEW_ENTRY_HEADER.printMessage(
-              rating, "5", reviewType, reviewId, reviewerName);
-          MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
           if (review instanceof PublicReview) {
             PublicReview pubReview = (PublicReview) review;
+            if (pubReview.isAnonymous()) {
+              // review is anonymous
+              MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+                  rating, "5", reviewType, reviewId, "Anonymous");
+            } else {
+              // review is not anonymous
+              MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+                  rating, "5", reviewType, reviewId, reviewerName);
+            }
+            // printing review comment
+            MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+            // review is endorsed
             if (pubReview.isEndorsed()) {
               MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
             }
