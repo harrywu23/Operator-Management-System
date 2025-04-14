@@ -370,8 +370,9 @@ public class OperatorManagementSystem {
     String reviewerName = options[0];
     String rating = options[1];
     String comment = options[2];
+    boolean wouldRecommend = options[3].equals("y");
 
-    Review newReview = new ExpertReview(reviewerName, rating, comment);
+    Review newReview = new ExpertReview(reviewerName, rating, comment, wouldRecommend);
     matchedActivity.addReview(newReview);
     // storing the new reviewID in the reviewClass and setting it so we can get it later
     newReview.setReviewId(reviewId);
@@ -452,7 +453,13 @@ public class OperatorManagementSystem {
           MessageCli.REVIEW_ENTRY_HEADER.printMessage(
               rating, "5", reviewType, reviewId, reviewerName);
           MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
-          MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
+          if (review instanceof ExpertReview) {
+            ExpertReview expertReview = (ExpertReview) review;
+            if (expertReview.isRecommended()) {
+              MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
+              return;
+            }
+          }
         }
       }
     }
