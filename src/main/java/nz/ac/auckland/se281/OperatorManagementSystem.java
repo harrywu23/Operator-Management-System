@@ -459,8 +459,10 @@ public class OperatorManagementSystem {
             if (expertReview.isRecommended()) {
               MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
             }
+            // test 15 upload image expert review
+            // test 16 - upload multiple images expert review
             if (expertReview.getImageName() != null) {
-              MessageCli.REVIEW_ENTRY_IMAGES.printMessage(expertReview.getImageName());
+              MessageCli.REVIEW_ENTRY_IMAGES.printMessage(expertReview.getImagesAsString());
             }
           }
         }
