@@ -537,6 +537,8 @@ public class OperatorManagementSystem {
   public void displayTopActivities() {
     for (Types.Location location : Types.Location.values()) {
       boolean hasReviewedActivity = false;
+      Activity topActivity = null;
+      int topAverageRating = -1;
 
       for (Activity activity : activityList) {
         if (!activity.getLocation().equals(location)) {
@@ -557,17 +559,17 @@ public class OperatorManagementSystem {
           }
 
           int averageRating = ratingIntegerTotal / ratings.size();
-          String averageString = Integer.toString(averageRating);
 
-          // If there are reviewed activities
-          if (hasReviewedActivity) {
-            MessageCli.TOP_ACTIVITY.printMessage(
-                location.toString(), activity.getActivityName(), averageString);
+          if (averageRating > topAverageRating) {
+            topAverageRating = averageRating;
+            topActivity = activity;
           }
         }
       }
-      // If there are no reviewed activities
-      if (!hasReviewedActivity) {
+      if (hasReviewedActivity && topActivity != null) {
+        MessageCli.TOP_ACTIVITY.printMessage(
+            location.toString(), topActivity.getActivityName(), Integer.toString(topAverageRating));
+      } else {
         MessageCli.NO_REVIEWED_ACTIVITIES.printMessage(location.toString());
       }
     }
