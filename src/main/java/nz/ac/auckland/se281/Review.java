@@ -13,6 +13,19 @@ public abstract class Review {
     this.reviewerName = reviewerName;
     this.rating = rating;
     this.comment = comment;
+
+    int numericRating = -1;
+
+    // Check if rating is a valid number
+    if (rating != null) {
+      numericRating = Integer.parseInt(rating);
+      if (numericRating < 1) {
+        numericRating = 1;
+      } else if (numericRating > 5) {
+        numericRating = 5;
+      }
+    }
+    this.rating = String.valueOf(numericRating);
   }
 
   public String getReviewType() {
