@@ -389,6 +389,12 @@ public class OperatorManagementSystem {
       }
     }
 
+    // if there is no matching activity to the activity id print error message
+    if (matchedActivity == null) {
+      MessageCli.ACTIVITY_NOT_FOUND.printMessage(activityId);
+      return;
+    }
+
     // if no reviews @ activity
     if (matchedActivity.getReviews().size() == 0) {
       String matchedActivityName = matchedActivity.getActivityName();
@@ -460,6 +466,69 @@ public class OperatorManagementSystem {
             }
             // test 15 upload image expert review
             // test 16 - upload multiple images expert review
+            if (expertReview.getImageName() != null) {
+              MessageCli.REVIEW_ENTRY_IMAGES.printMessage(expertReview.getImagesAsString());
+            }
+          }
+        }
+      }
+      // if there is more than 1 review
+    } else if (matchedActivity.getReviews().size() > 1) {
+      MessageCli.REVIEWS_FOUND.printMessage(
+          "are",
+          String.valueOf(matchedActivity.getReviews().size()),
+          "s",
+          matchedActivity.getActivityName());
+      for (Review review : matchedActivity.getReviews()) {
+        String rating = review.getRating();
+        String reviewId = review.getReviewId();
+        String reviewerName = review.getReviewerName();
+        String reviewComment = review.getComment();
+        String reviewType = review.getReviewType();
+
+        // PUBLIC REVIEW
+        if (review.getReviewType().equals(Types.ReviewType.PUBLIC.toString())) {
+          if (review instanceof PublicReview) {
+            PublicReview pubReview = (PublicReview) review;
+            if (pubReview.isAnonymous()) {
+              MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+                  rating, "5", reviewType, reviewId, "Anonymous");
+            } else {
+              MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+                  rating, "5", reviewType, reviewId, reviewerName);
+            }
+            MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+            if (pubReview.isEndorsed()) {
+              MessageCli.REVIEW_ENTRY_ENDORSED.printMessage();
+            }
+          }
+        }
+
+        // PRIVATE REVIEW
+        if (review.getReviewType().equals(Types.ReviewType.PRIVATE.toString())) {
+          MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+              rating, "5", reviewType, reviewId, reviewerName);
+          MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+          if (review instanceof PrivateReview) {
+            PrivateReview privateReview = (PrivateReview) review;
+            if (privateReview.isResolved()) {
+              MessageCli.REVIEW_ENTRY_RESOLVED.printMessage(privateReview.getOperatorResponse());
+            } else if (privateReview.isFollowUpRequired()) {
+              MessageCli.REVIEW_ENTRY_FOLLOW_UP.printMessage(privateReview.getEmail());
+            }
+          }
+        }
+
+        // EXPERT REVIEW
+        if (review.getReviewType().equals(Types.ReviewType.EXPERT.toString())) {
+          MessageCli.REVIEW_ENTRY_HEADER.printMessage(
+              rating, "5", reviewType, reviewId, reviewerName);
+          MessageCli.REVIEW_ENTRY_REVIEW_TEXT.printMessage(reviewComment);
+          if (review instanceof ExpertReview) {
+            ExpertReview expertReview = (ExpertReview) review;
+            if (expertReview.isRecommended()) {
+              MessageCli.REVIEW_ENTRY_RECOMMENDED.printMessage();
+            }
             if (expertReview.getImageName() != null) {
               MessageCli.REVIEW_ENTRY_IMAGES.printMessage(expertReview.getImagesAsString());
             }
