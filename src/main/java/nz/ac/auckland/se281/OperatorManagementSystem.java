@@ -604,29 +604,35 @@ public class OperatorManagementSystem {
   }
 
   public void displayTopActivities() {
+    // Loop through each possible location
     for (Types.Location location : Types.Location.values()) {
       boolean hasReviewedActivity = false;
       Activity topActivity = null;
       int topAverageRating = -1;
 
+      // Loop through all activities
       for (Activity activity : activityList) {
+        // Skip activities that aren't in the current location
         if (!activity.getLocation().equals(location)) {
           continue;
         }
 
         ArrayList<String> ratings = new ArrayList<>();
 
+        // Collect ratings from public and expert reviews only
         for (Review review : activity.getReviews()) {
           if (review instanceof PublicReview || review instanceof ExpertReview) {
             ratings.add(review.getRating());
           }
         }
+        // If there are no valid reviews for this activity, skip
         if (ratings.isEmpty()) {
           continue;
         }
 
         hasReviewedActivity = true;
 
+        // Calculate the average rating for this activity
         int ratingIntegerTotal = 0;
         for (String rating : ratings) {
           ratingIntegerTotal += Integer.parseInt(rating);
@@ -634,6 +640,7 @@ public class OperatorManagementSystem {
 
         int averageRating = ratingIntegerTotal / ratings.size();
 
+        // Update top activity if this one has a higher average rating
         if (averageRating > topAverageRating) {
           topAverageRating = averageRating;
           topActivity = activity;
